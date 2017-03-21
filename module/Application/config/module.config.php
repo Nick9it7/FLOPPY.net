@@ -24,22 +24,31 @@ return [
                     ],
                 ],
             ],
-            'application' => [
+            'user' => [
                 'type'    => Segment::class,
                 'options' => [
-                    'route'    => '/application[/:action]',
+                    'route'    => '/user[/:action]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
-                        'action'     => 'index',
-                    ],
-                ],
-            ],
+                        'controller' => Controller\UserController::class,
+                        'action'     => 'login'
+                    ]
+                ]
+            ]
         ],
     ],
     'controllers' => [
         'factories' => [
             Controller\IndexController::class => InvokableFactory::class,
+            Controller\UserController::class => InvokableFactory::class
         ],
+    ],
+    'controller_plugins' => [
+        'factories' => [
+            Plugin\FileUpload::class => InvokableFactory::class,
+        ],
+        'aliases' => [
+            'uploadFile' => Plugin\FileUpload::class,
+        ]
     ],
     'view_manager' => [
         'display_not_found_reason' => true,

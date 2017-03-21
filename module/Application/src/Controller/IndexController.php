@@ -9,8 +9,15 @@ namespace Application\Controller;
 
 use Zend\View\Model\ViewModel;
 
+/**
+ * Class IndexController
+ * @package Application\Controller
+ */
 class IndexController extends AbstractController
 {
+    /**
+     * @return ViewModel
+     */
     public function indexAction()
     {
         return new ViewModel();

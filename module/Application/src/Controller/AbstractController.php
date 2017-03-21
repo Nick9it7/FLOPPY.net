@@ -1,8 +1,10 @@
 <?php
 
 namespace Application\Controller;
+
 use Doctrine\ORM\EntityManager;
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\Session\SessionManager;
 
 /**
  * Class AbstractController
@@ -19,5 +21,16 @@ abstract class AbstractController extends AbstractActionController
             ->getApplication()
             ->getServiceManager()
             ->get('Doctrine\ORM\EntityManager');
+    }
+
+    /**
+     * @return SessionManager
+     */
+    protected function getSession()
+    {
+        return $this->getEvent()
+            ->getApplication()
+            ->getServiceManager()
+            ->get(SessionManager::class);
     }
 }
