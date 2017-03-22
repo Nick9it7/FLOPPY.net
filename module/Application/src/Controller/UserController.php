@@ -2,10 +2,12 @@
 
 namespace Application\Controller;
 
+use Application\Form\LoginForm;
 use Application\Form\RegisterForm;
 use Application\Model\User;
+use Zend\Http\Request;
 use Zend\Session\Container;
-use Zend\Session\SessionManager;
+use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -14,53 +16,104 @@ use Zend\View\Model\ViewModel;
  */
 class UserController extends AbstractController
 {
+    public function restrictLoggedIn()
+    {
+        if ($this->getSession()->sessionExists() === true) {
+            $this->redirect()->toRoute('home');
+        }
+    }
 
+    /**
+     * Login action
+     * @return ViewModel
+     */
     public function loginAction()
     {
+        $this->restrictLoggedIn();
 
-        if ($this->getRequest()->isPost() === true) {
+        /** @var Request $request */
+        $request = $this->getRequest();
 
-            $user = $this->getEntityManager()->getRepository(User::class)->findBy([
-                'login' => $this->params()->fromPost('login'),
-                'password' => $this->params()->fromPost('password')
-            ]);
+        if (true === $request->isPost()) {
+            $result = new JsonModel();
+            $form = new LoginForm();
 
-            if (!empty($user)) {
-                $container = new Container('UserRegistration', $this->getSession());
-                $container->id = $user[0];
+            $data = $request->getPost();
+
+            if ($form->setData($data)->isValid() === true) {
+
+                $user = $this->getEntityManager()->getRepository(User::class)->findBy([
+                    'email' => $this->params()->fromPost('email'),
+                    'password' => User::hashPassword($this->params()->fromPost('password'))
+                ]);
+
+                if (!empty($user)) {
+                    $container = new Container('UserRegistration', $this->getSession());
+                    $container->id = $user[0];
+                    $result->setVariable('redirect',$this->url()->fromRoute('home'));
+                } else {
+                    $result->setVariable('errors', 'Email or password is incorrect. Try again');
+                }
+
+            } else {
+                $result->setVariable('errors', $form->getMessages());
             }
+            return $result;
         }
-
-        return new ViewModel([
-            'repo' => $container->id
-        ]);
+        return new ViewModel();
     }
 
+    /**
+     * @return ViewModel|array
+     */
     public function registerAction()
     {
+        $this->restrictLoggedIn();
 
-        if ($this->getRequest()->isPost === true) {
+        /** @var Request $request */
+        $request = $this->getRequest();
 
+        if (true === $request->isPost()) {
+            $result = new JsonModel();
             $form = new RegisterForm();
 
-            $form->setData($this->params()->fromPost());
+            $data = $request->getPost();
 
-            if ($form->isValid()) {
+            if ($form->setData($data)->isValid() === true) {
 
-                $user = new User();
-                $user->setLogin();
+                $user = $this->getEntityManager()->getRepository(User::class)->findBy([
+                    'email' => $this->params()->fromPost('email'),
+                ]);
 
+                if (!empty($user)) {
+                    $user = new User();
+                    $user->setEmail($form->get('email')->getValue());
+                    $user->setName($form->get('name')->getValue());
+                    $user->setPassword(User::hashPassword($form->get('password')->getValue()));
+                    $user->setPhoto('');
+
+                    $this->getEntityManager()->persist($user);
+                    $this->getEntityManager()->flush();
+
+                }                $this->getAuth()->getStorage()->write($user->getId());
+
+
+            } else {
+                $result->setVariable('errors', $form->getMessages());
             }
-
-
+            return $result;
         }
-
-        return new ViewModel();
     }
 
+    /**
+     * @return void
+     */
     public function logoutAction()
     {
+        $this->getAuth()
+            ->getStorage()
+            ->clear();
 
-        return new ViewModel();
+        $this->redirect()->toRoute('user', ['action' => 'login']);
     }
 }

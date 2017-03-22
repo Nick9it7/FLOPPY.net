@@ -25,7 +25,7 @@ class User
      * @var string
      * @ORM\Column(type="string")
      */
-    private $login;
+    private $email;
 
     /**
      * @var string
@@ -58,15 +58,15 @@ class User
      */
     public function getLogin()
     {
-        return $this->login;
+        return $this->email;
     }
 
     /**
      * @param string $login
      */
-    public function setLogin($login)
+    public function setEmail($email)
     {
-        $this->login = $login;
+        $this->email = $email;
     }
 
     /**
@@ -115,6 +115,15 @@ class User
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @param $password
+     * @return string
+     */
+    public static function hashPassword($password)
+    {
+        return sha1(sha1($password . md5(strrev($password))));
     }
 }
 

@@ -20,6 +20,7 @@ class IndexController extends AbstractController
      */
     public function indexAction()
     {
+        $this->redirect('user/');
         return new ViewModel();
     }
 }
