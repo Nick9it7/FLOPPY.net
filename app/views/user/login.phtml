@@ -1,0 +1,30 @@
+<div class="panel panel-default" >
+    <div class="panel-heading head-login-register">
+        <div class="panel-title">Sign In</div>
+    </div>
+    <div class="panel-body">
+        <?= $this->tag->form(
+            [
+                'user/login',
+                'method' => "post",
+                'id' => "loginform",
+                'class' => "async"
+            ]
+        )
+        ?>
+            <div class="form-group">
+                <label for="email_field">Email</label>
+                <input type="text" name="email" id="email_field" class="form-control">
+            </div>
+            <div class="form-group">
+                <div><label for="password_field">Password</label></div>
+                <input type="password" name="password" id="password_field" class="form-control">
+            </div>
+            <div class="form-group button-block text-right">
+                <div class="col-sm-12 controls">
+                    <button class="btn btn-default">Log In</button>
+                </div>
+            </div>
+        <?= $this->tag->endForm() ?>
+    </div>
+</div>
