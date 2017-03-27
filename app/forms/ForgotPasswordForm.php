@@ -13,11 +13,7 @@ class ForgotPasswordForm extends ValidForm
         $this->requiredValidator($email);
         $email->addValidators(
             [
-                new Email(
-                    [
-                        'message' => 'Email is not valid'
-                    ]
-                )
+                new Email()
             ]
         );
         $this->add($email);

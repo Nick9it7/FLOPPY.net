@@ -15,11 +15,7 @@ class LoginForm extends ValidForm
         $this->requiredValidator($login);
         $login->addValidators(
             [
-                new Email(
-                    [
-                        'message' => 'Email is invalid'
-                    ]
-                )
+                new Email()
             ]
         );
         $this->add($login);

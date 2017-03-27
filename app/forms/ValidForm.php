@@ -19,11 +19,7 @@ class ValidForm extends Form
     {
         $element->addValidators(
             [
-                new PresenceOf(
-                    [
-                        'message' => $element->getLabel() . ' is required'
-                    ]
-                )
+                new PresenceOf()
             ]
         );
     }

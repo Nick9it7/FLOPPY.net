@@ -16,12 +16,7 @@ class RegistrationForm extends ValidForm
         $this->requiredValidator($email);
         $email->addValidators(
             [
-                new Email(
-                    [
-                        'message' => 'Email is invalid'
-
-                    ]
-                )
+                new Email()
             ]
         );
         $this->add($email);

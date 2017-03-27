@@ -99,7 +99,7 @@ class UserController extends Controller
                         ]
                     ]
                 );
-                
+
                 if ($user !== false) {
                     $password = $this->request->getPost('password');
 
@@ -109,11 +109,11 @@ class UserController extends Controller
                         ]);
 
                         $this->flashSession->success('Welcome ' . $user->getName());
-                       return $this->response->setJsonContent(
-                           [
-                               'redirect' => 'index'
-                           ]
-                       );
+                        return $this->response->setJsonContent(
+                            [
+                                'redirect' => 'index'
+                            ]
+                        );
 
                     } else {
                         $error[] = [
@@ -179,28 +179,23 @@ class UserController extends Controller
                     $recovery->setUser($user->getId());
                     $recovery->setHash(PasswordRecovery::generateHash());
                     $recovery->setActive(true);
+                    $recovery->save();
 
-                    if ($recovery->save() === true) {
+                    $url = 'phalconproject/recoverPassword/' . $recovery->getHash();
+                    $letter = 'To recover password go to ' . $this->tag->linkTo($url, 'url') . $this->tag->tagHtml('br');
+                    $url = 'phalconproject/recoverPasswordCancel/' . $recovery->getHash();
+                    $letter .= 'If you did not request a password recovery follow ' . $this->tag->linkTo($url, 'url');
 
-                        $url = 'phalconproject/recoverPassword/' . $recovery->getHash();
-                        $letter = 'To recover password go to ' . $this->tag->linkTo($url, 'url') . $this->tag->tagHtml('br');
-                        $url = 'phalconproject/recoverPasswordCancel/' . $recovery->getHash();
-                        $letter .= 'If you did not request a password recovery follow ' . $this->tag->linkTo($url, 'url');
+                    $message = $this->mailer->createMessage()
+                        ->to($user->getEmail())
+                        ->subject('Recovery password')
+                        ->content($letter);
 
-                        $message = $this->mailer->createMessage()
-                            ->to($user->getEmail())
-                            ->subject('Recovery password')
-                            ->content($letter);
-
-                        $message->send();
-                        $this->flashSession->notice('Check your email');
-                        return $this->response->setJsonContent([
-                            'redirect' => 'index'
-                        ]);
-                    } else {
-                        foreach ($user->getMessages() as $message)
-                            $this->flashSession->error($message);
-                    }
+                    $message->send();
+                    $this->flashSession->notice('Check your email');
+                    return $this->response->setJsonContent([
+                        'redirect' => '/index'
+                    ]);
 
                 } else {
                     $error[] = [
@@ -228,6 +223,7 @@ class UserController extends Controller
     {
         if ($this->request->isPost()) {
             $form = new RecoverPasswordForm();
+            $error = [];
 
             if ($form->isValid($this->request->getPost())) {
 
@@ -243,7 +239,10 @@ class UserController extends Controller
                 );
 
                 if ($recoverModel === false) {
-                    $this->flashSession->error('Recovery password link is not valid');
+                    $error[] = [
+                        'field' => 'password',
+                        'message' =>'Recovery password link is not valid'
+                    ];
                 } else {
                     $recoverModel->setActive(false);
                     $recoverModel->save();
@@ -255,17 +254,25 @@ class UserController extends Controller
                     $user->setPassword(
                         $this->security->hash($this->request->getPost('password'))
                     );
-                    if ($user->save())
-                        $this->flashSession->success('Password was changed successfully');
+                    $user->save();
+                    $this->flashSession->success('Password was changed successfully');
 
                     return $this->response->setJsonContent([
-                        'redirect' => 'login'
+                        'redirect' => '/user/login'
                     ]);
                 }
             } else {
                 foreach ($form->getMessages() as $message)
-                    $this->flashSession->error($message);
+                    $error[] = [
+                        'field' => $message->getField(),
+                        'message' => $message->getMessage()
+                    ];
+
                 $this->view->hash = $this->request->getPost('hash');
+                $this->response->setJsonContent([
+                    'error' => $error
+                ]);
+                return $this->response;
             }
 
         } else {
@@ -273,9 +280,12 @@ class UserController extends Controller
 
             if (true === empty($hash)) {
                 $this->flashSession->error('Not found page');
-                return $this->response->setJsonContent([
-                    'redirect' => 'index'
-                ]);
+                $this->dispatcher->forward(
+                    [
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ]
+                );
             } else {
                 /** @var PasswordRecovery $recoverModel */
                 $recoverModel = PasswordRecovery::findFirst(
@@ -290,9 +300,12 @@ class UserController extends Controller
 
                 if ($recoverModel === false) {
                     $this->flashSession->error('Not found page');
-                    return $this->response->setJsonContent([
-                        'redirect' => 'index'
-                    ]);
+                    $this->dispatcher->forward(
+                        [
+                            'controller' => 'index',
+                            'action' => 'index'
+                        ]
+                    );
                 }
 
                 $this->view->hash = $hash;
@@ -306,7 +319,12 @@ class UserController extends Controller
 
         if (true === empty($hash)) {
             $this->flashSession->error('Not found page');
-            $this->response->redirect('');
+            $this->dispatcher->forward(
+                [
+                    'controller' => 'index',
+                    'action' => 'index'
+                ]
+            );
         } else {
             /** @var PasswordRecovery $recoverModel */
             $recoverModel = PasswordRecovery::findFirst(
@@ -321,13 +339,23 @@ class UserController extends Controller
 
             if ($recoverModel === false) {
                 $this->flashSession->error('Not found page');
-                $this->response->redirect('');
+                $this->dispatcher->forward(
+                    [
+                        'controller' => 'index',
+                        'action' => 'index'
+                    ]
+                );
             } else {
                 $recoverModel->setActive(false);
-                if ($recoverModel->save())
-                    $this->flashSession->notice('Recovery password was aborted');
+                $recoverModel->save();
+                $this->flashSession->notice('Recovery password was aborted');
+                $this->dispatcher->forward(
+                    [
+                        'controller' => 'user',
+                        'action' => 'login'
+                    ]
+                );
             }
-            $this->response->redirect('');
         }
     }
 }
