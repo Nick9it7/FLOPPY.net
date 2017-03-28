@@ -1,0 +1,100 @@
+body {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background: url('../img/bgmain.jpg') repeat;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-group {
+    margin-bottom: 5px;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input {
+  margin-bottom: 5px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.formcoordination{
+    position: relative;
+    margin-top:100px;
+    }
+h1{
+    font-size: 70px;
+    font-family: 'Jura', sans-serif;
+    color:#fff;
+    margin:0;
+    }
+.btn-group-lg>.btn, .btn-lg{
+padding: 15px;
+border-radius: 3px;
+}
+.glyphicon-log-in{
+padding-right: 10px;
+}
+.glyphicon-user{
+  padding-right: 10px;
+}
+img{
+  width: 100%;
+}
+.f_name{
+  font-family: 'Audiowide', cursive;
+  font-size: 90px;
+  text-shadow:2px 2px 5px #337ab7;
+
+}
+@media only screen and (max-width : 1200px) {
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+.text{
+    text-align: center;
+    margin-top: -100px;
+    }
+.f_name{
+    font-size: 60px;
+    }
+    }
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+
+    .text h1 {
+        font-size: 50px;
+    }
+
+    .text {
+        margin-top: -90px;
+    }
+
+    .f_name {
+        font-size: 50px;
+    }
+
+    /* Extra Small Devices, Phones */
+    @media only screen and (max-width: 480px) {
+        .text {
+            margin-top: -50px;
+        }
+
+        .form-signin {
+            min-width: 330px;
+            font-size: 10px;
+        }
+    }
+}

@@ -77,6 +77,57 @@ class PasswordRecoveryMigration_100 extends Migration
      */
     public function up()
     {
+        $this->morphTable('password_recovery', [
+                'columns' => [
+                    new Column(
+                        'id',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'notNull' => true,
+                            'autoIncrement' => true,
+                            'size' => 11,
+                            'first' => true
+                        ]
+                    ),
+                    new Column(
+                        'user',
+                        [
+                            'type' => Column::TYPE_INTEGER,
+                            'notNull' => true,
+                            'size' => 11,
+                            'after' => 'id'
+                        ]
+                    ),
+                    new Column(
+                        'hash',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'user'
+                        ]
+                    ),
+                    new Column(
+                        'active',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'hash'
+                        ]
+                    )
+                ],
+                'indexes' => [
+                    new Index('PRIMARY', ['id'], 'PRIMARY')
+                ],
+                'options' => [
+                    'TABLE_TYPE' => 'BASE TABLE',
+                    'AUTO_INCREMENT' => '36',
+                    'ENGINE' => 'InnoDB',
+                    'TABLE_COLLATION' => 'utf8_general_ci'
+                ],
+            ]
+        );
 
     }
 

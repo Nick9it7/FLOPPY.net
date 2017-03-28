@@ -1,29 +1,40 @@
-<div class="panel panel-default" >
-    <div class="panel-heading head-login-register">
-        <div class="panel-title">Sign In</div>
+<?= $this->tag->image([
+            "img/1.png",
+            'class' => 'hidden-xs hidden-md'
+]);?>
+<?= $this->tag->image([
+            "img/2.png",
+            'class' => 'hidden-lg hidden-md hidden-sm'
+]);?>
+<?= $this->tag->image([
+            "img/3.png",
+            'class' => 'hidden-lg hidden-sm hidden-xs'
+]);?>
+<div class="container formcoordination">
+    <div class="col-md-8 ">
+        <div class="text">
+            <h1>Груповий<p>файлобмінник</p ><p class="f_name">FLOPPY.net</p></h1>
+        </div>
     </div>
-    <div class="panel-body">
+    <div class="col-md-4">
         <?= $this->tag->form(
             [
                 '/user/login',
                 'method' => "post",
-                'class' => "async"
+                'class' => "form-signin async"
             ]
         )
         ?>
-            <div class="form-group">
-                <label for="email_field">Email</label>
-                <input type="text" name="email" id="email_field" class="form-control">
-            </div>
-            <div class="form-group">
-                <div><label for="password_field">Password</label></div>
-                <input type="password" name="password" id="password_field" class="form-control">
-            </div>
-            <div class="form-group button-block text-right">
-                <div class="col-sm-12 controls">
-                    <button class="btn btn-default">Log In</button>
-                </div>
-            </div>
+        <div class="form-group">
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Електронна пошта">
+        </div>
+        <div class="form-group">
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль">
+        </div>
+        <button style="margin-top: 15px" class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-log-in"></i>Увійти</button>
+        <a href="/user/register" class="btn btn-lg btn-primary btn-block"><i class="glyphicon glyphicon-user"></i>Зареєструватися</a>
         <?= $this->tag->endForm() ?>
     </div>
 </div>
