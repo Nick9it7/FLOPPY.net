@@ -1,6 +1,9 @@
 <?php
 
 use Phalcon\Mvc\Model;
+use Phalcon\Validation;
+use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\Uniqueness;
 
 /**
  * Class Users
@@ -26,6 +29,26 @@ class Users extends Model
      * @var string
      */
     private $password;
+
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'email',
+            new Email()
+        );
+        $validator->add(
+            'email',
+            new Uniqueness(
+                [
+                    'message' => 'Sorry, The email was registered by another user'
+                ]
+            )
+        );
+
+        return $this->validate($validator);
+    }
 
     public function initialize()
     {

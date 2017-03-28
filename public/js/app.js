@@ -32,7 +32,6 @@ var ajaxFormSubmit = function (event) {
 
     } else {
         callback = function (response) {
-            console.log(response.error);
             if (!($.isEmptyObject(response.error))) {
                 Validate.showErrorsMessages(response.error);
             } else {

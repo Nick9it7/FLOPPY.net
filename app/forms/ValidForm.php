@@ -24,4 +24,17 @@ class ValidForm extends Form
         );
     }
 
+    public function requiredValidatorCancel(Phalcon\Forms\Element $element)
+    {
+        $element->addValidators(
+            [
+                new PresenceOf(
+                    [
+                        "cancelOnFail" => true,
+                    ]
+                )
+            ]
+        );
+    }
+
 }

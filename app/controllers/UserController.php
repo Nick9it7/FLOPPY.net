@@ -32,16 +32,6 @@ class UserController extends Controller
             $error = [];
 
             if ($form->isValid($this->request->getPost())) {
-                $email = Users::findFirst(
-                    [
-                        'email = :email:',
-                        'bind' => [
-                            'email'    => $this->request->getPost('email')
-                        ]
-                    ]
-                );
-                
-                if ($email === false) {
 
                     /**
                      * @var Users
@@ -52,17 +42,19 @@ class UserController extends Controller
                     $user->setPassword(
                         $this->security->hash($this->request->getPost('password'))
                     );
-                    $user->save();
+
+                if ($user->save() === false) {
+                    foreach ($user->getMessages() as $message)
+                        $error[] = [
+                            'field' => $message->getField(),
+                            'message' => $message->getMessage()
+                        ];
+                } else {
                     $this->dispatcher->forward(
                         [
                             'action'     => 'login'
                         ]
                     );
-                } else {
-                    $error[] = [
-                        'field' => 'email',
-                        'message' => 'Email is exists'
-                    ];
                 }
 
             } else {
@@ -103,7 +95,7 @@ class UserController extends Controller
                 if ($user !== false) {
                     $password = $this->request->getPost('password');
 
-                    if ($this->security->checkHash($password, $user->getPassword())) {
+                    if ($this->security->checkHash($password, $user->getPassword()) === true) {
                         $this->session->set('user_identity',[
                             'id' => $user->getId()
                         ]);
@@ -114,13 +106,12 @@ class UserController extends Controller
                                 'redirect' => 'index'
                             ]
                         );
-
-                    } else {
-                        $error[] = [
-                            'field' => 'password',
-                            'message' =>'Password is incorrect. Try again'
-                        ];
                     }
+
+                    $error[] = [
+                        'field' => 'password',
+                        'message' =>'Password is incorrect. Try again'
+                    ];
 
                 } else {
                     $error[] = [
@@ -197,12 +188,12 @@ class UserController extends Controller
                         'redirect' => '/index'
                     ]);
 
-                } else {
-                    $error[] = [
-                        'field' => 'email',
-                        'message' => 'Email is not found'
-                    ];
                 }
+
+                $error[] = [
+                    'field' => 'email',
+                    'message' => 'Email is not found'
+                ];
 
             } else {
                 foreach ($form->getMessages() as $message)
@@ -279,13 +270,7 @@ class UserController extends Controller
             $hash = trim($this->dispatcher->getParam('hash'), '/');
 
             if (true === empty($hash)) {
-                $this->flashSession->error('Not found page');
-                $this->dispatcher->forward(
-                    [
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ]
-                );
+                $this->dispatcher->forward(['controller' => 'error', 'action' =>   'notFound']);
             } else {
                 /** @var PasswordRecovery $recoverModel */
                 $recoverModel = PasswordRecovery::findFirst(
@@ -299,13 +284,7 @@ class UserController extends Controller
                 );
 
                 if ($recoverModel === false) {
-                    $this->flashSession->error('Not found page');
-                    $this->dispatcher->forward(
-                        [
-                            'controller' => 'index',
-                            'action' => 'index'
-                        ]
-                    );
+                    $this->dispatcher->forward(['controller' => 'error', 'action' =>   'notFound']);
                 }
 
                 $this->view->hash = $hash;
@@ -318,13 +297,7 @@ class UserController extends Controller
         $hash = trim($this->dispatcher->getParam('hash'), '/');
 
         if (true === empty($hash)) {
-            $this->flashSession->error('Not found page');
-            $this->dispatcher->forward(
-                [
-                    'controller' => 'index',
-                    'action' => 'index'
-                ]
-            );
+            $this->dispatcher->forward(['controller' => 'error', 'action' =>   'notFound']);
         } else {
             /** @var PasswordRecovery $recoverModel */
             $recoverModel = PasswordRecovery::findFirst(
@@ -338,13 +311,7 @@ class UserController extends Controller
             );
 
             if ($recoverModel === false) {
-                $this->flashSession->error('Not found page');
-                $this->dispatcher->forward(
-                    [
-                        'controller' => 'index',
-                        'action' => 'index'
-                    ]
-                );
+                $this->dispatcher->forward(['controller' => 'error', 'action' =>   'notFound']);
             } else {
                 $recoverModel->setActive(false);
                 $recoverModel->save();

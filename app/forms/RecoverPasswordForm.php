@@ -10,7 +10,7 @@ class RecoverPasswordForm extends ValidForm
         $password = new Password('password');
         $password->setLabel('Password');
         $this->filter($password);
-        $this->requiredValidator($password);
+        $this->requiredValidatorCancel($password);
         $password->addValidators(
             [
                 new StringLength(

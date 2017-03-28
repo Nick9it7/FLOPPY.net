@@ -3,7 +3,6 @@
 
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\StringLength;
 
 class RegistrationForm extends ValidForm
@@ -14,11 +13,6 @@ class RegistrationForm extends ValidForm
         $email->setLabel('Email');
         $this->filter($email);
         $this->requiredValidator($email);
-        $email->addValidators(
-            [
-                new Email()
-            ]
-        );
         $this->add($email);
 
 
@@ -32,7 +26,7 @@ class RegistrationForm extends ValidForm
         $password = new Password('password');
         $password->setLabel('Password');
         $this->filter($password);
-        $this->requiredValidator($password);
+        $this->requiredValidatorCancel($password);
         $password->addValidators(
             [
                 new StringLength(

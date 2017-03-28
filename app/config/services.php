@@ -121,8 +121,29 @@ $di->setShared(
         $eventsManager = new EventsManager();
 
         $eventsManager->attach(
-            "dispatch",
-            function (Event $event, $dispatcher) {
+            'dispatch:beforeException',
+            function($event, $dispatcher, $exception) {
+                switch ($exception->getCode()) {
+                    case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                    case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                        $dispatcher->forward(
+                            array(
+                                'controller' => 'error',
+                                'action' => 'notFound',
+                            )
+                        );
+                        return false;
+                        break;
+                    default:
+                        $dispatcher->forward(
+                            array(
+                                'controller' => 'error',
+                                'action' => 'uncaughtException',
+                            )
+                        );
+                        return false;
+                        break;
+                }
             }
         );
 

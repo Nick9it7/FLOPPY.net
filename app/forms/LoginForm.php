@@ -13,11 +13,6 @@ class LoginForm extends ValidForm
         $login->setLabel('Email');
         $this->filter($login);
         $this->requiredValidator($login);
-        $login->addValidators(
-            [
-                new Email()
-            ]
-        );
         $this->add($login);
 
 
