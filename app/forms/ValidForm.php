@@ -19,7 +19,11 @@ class ValidForm extends Form
     {
         $element->addValidators(
             [
-                new PresenceOf()
+                new PresenceOf(
+                    [
+                        'message' => $element->getLabel() . ' не може бути пустим'
+                    ]
+                )
             ]
         );
     }
@@ -30,7 +34,8 @@ class ValidForm extends Form
             [
                 new PresenceOf(
                     [
-                        "cancelOnFail" => true,
+                        'message' => $element->getLabel() . ' не може бути пустим',
+                        'cancelOnFail' => true,
                     ]
                 )
             ]

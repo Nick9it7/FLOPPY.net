@@ -3,6 +3,7 @@
 
 use Phalcon\Forms\Element\Password;
 use Phalcon\Forms\Element\Text;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\StringLength;
 
 class RegistrationForm extends ValidForm
@@ -17,14 +18,14 @@ class RegistrationForm extends ValidForm
 
 
         $name = new Text('name');
-        $name->setLabel('Name');
+        $name->setLabel('Nickname');
         $this->filter($name);
         $this->requiredValidator($name);
         $this->add($name);
 
 
         $password = new Password('password');
-        $password->setLabel('Password');
+        $password->setLabel('Пароль');
         $this->filter($password);
         $this->requiredValidatorCancel($password);
         $password->addValidators(
@@ -33,10 +34,28 @@ class RegistrationForm extends ValidForm
                     [
                         'min' => 6,
                         'max' => 48,
+                        'messageMaximum' => 'Пароль не повинен перевищувати 48 символів',
+                        'messageMinimum' => 'Пароль повинен бути довжиною не менше 6 символів',
                     ]
                 )
             ]
         );
         $this->add($password);
+
+
+        $conformPassword = new Password('confirmPassword');
+        $conformPassword->setLabel('Підтвердіть пароль');
+        $this->filter($conformPassword);
+        $conformPassword->addValidators(
+            [
+                new Confirmation(
+                    [
+                        "message" => "Пароль не збігається з підтвердженням",
+                        "with"    => "password",
+                    ]
+                )
+            ]
+        );
+        $this->add($conformPassword);
     }
 }

@@ -24,6 +24,9 @@ class UserController extends Controller
         $this->response->redirect('user/login');
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function registerAction()
     {
 
@@ -71,6 +74,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function loginAction()
     {
 
@@ -100,7 +106,7 @@ class UserController extends Controller
                             'id' => $user->getId()
                         ]);
 
-                        $this->flashSession->success('Welcome ' . $user->getName());
+                        $this->flashSession->success('Вітаємо ' . $user->getName());
                         return $this->response->setJsonContent(
                             [
                                 'redirect' => 'index'
@@ -110,13 +116,13 @@ class UserController extends Controller
 
                     $error[] = [
                         'field' => 'password',
-                        'message' =>'Password is incorrect. Try again'
+                        'message' =>'Пароль невірний. Попробуйте ще раз'
                     ];
 
                 } else {
                     $error[] = [
                         'field' => 'email',
-                        'message' => 'User is not found'
+                        'message' => 'Email введений невірно'
                     ];
                 }
 
@@ -141,6 +147,9 @@ class UserController extends Controller
         $this->response->redirect('');
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function forgotPasswordAction()
     {
         if ($this->request->isPost()) {
@@ -192,7 +201,7 @@ class UserController extends Controller
 
                 $error[] = [
                     'field' => 'email',
-                    'message' => 'Email is not found'
+                    'message' => 'Не знайдено користувача за таким email'
                 ];
 
             } else {
@@ -210,6 +219,9 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     */
     public function recoverPasswordAction()
     {
         if ($this->request->isPost()) {
@@ -232,7 +244,7 @@ class UserController extends Controller
                 if ($recoverModel === false) {
                     $error[] = [
                         'field' => 'password',
-                        'message' =>'Recovery password link is not valid'
+                        'message' =>'Посилання для відновлення пароля є невірним'
                     ];
                 } else {
                     $recoverModel->setActive(false);
@@ -246,7 +258,7 @@ class UserController extends Controller
                         $this->security->hash($this->request->getPost('password'))
                     );
                     $user->save();
-                    $this->flashSession->success('Password was changed successfully');
+                    $this->flashSession->success('Пароль змінено успішно');
 
                     return $this->response->setJsonContent([
                         'redirect' => '/user/login'
@@ -315,7 +327,7 @@ class UserController extends Controller
             } else {
                 $recoverModel->setActive(false);
                 $recoverModel->save();
-                $this->flashSession->notice('Recovery password was aborted');
+                $this->flashSession->notice('Відновлення пароля перервано');
                 $this->dispatcher->forward(
                     [
                         'controller' => 'user',

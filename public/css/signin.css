@@ -9,7 +9,7 @@ body {
   margin: 0 auto;
 }
 .form-group {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 .form-signin .form-control {
   position: relative;
@@ -24,13 +24,12 @@ body {
   z-index: 2;
 }
 .form-signin input {
-  margin-bottom: 5px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 .formcoordination{
     position: relative;
-    margin-top:100px;
+    margin-top:15%;
     }
 h1{
     font-size: 70px;
@@ -56,6 +55,13 @@ img{
   font-size: 90px;
   text-shadow:2px 2px 5px #337ab7;
 
+}
+.eye {
+    font-size: large;
+    float: right;
+    top: -30px;
+    left: -20px;
+    z-index: 999;
 }
 @media only screen and (max-width : 1200px) {
 

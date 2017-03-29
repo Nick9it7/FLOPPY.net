@@ -17,7 +17,7 @@ class LoginForm extends ValidForm
 
 
         $password = new Password('password');
-        $password->setLabel('Password');
+        $password->setLabel('Пароль');
         $this->filter($password);
         $this->requiredValidator($password);
         $this->add($password);

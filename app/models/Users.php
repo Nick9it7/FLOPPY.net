@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Model;
 use Phalcon\Validation;
+use Phalcon\Validation\Validator\Confirmation;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\Uniqueness;
 
@@ -36,13 +37,17 @@ class Users extends Model
 
         $validator->add(
             'email',
-            new Email()
+            new Email(
+                [
+                    'message' => 'Email введений невірно'
+                ]
+            )
         );
         $validator->add(
             'email',
             new Uniqueness(
                 [
-                    'message' => 'Sorry, The email was registered by another user'
+                    'message' => 'Вибачте. Email вже зареєстрований іншим користувачем'
                 ]
             )
         );

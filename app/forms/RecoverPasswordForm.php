@@ -15,8 +15,10 @@ class RecoverPasswordForm extends ValidForm
             [
                 new StringLength(
                     [
-                        'min' => 6,
-                        'max' => 48,
+                        'min'            => 6,
+                        'max'            => 48,
+                        'messageMaximum' => 'Пароль не повинен перевищувати 48 символів',
+                        'messageMinimum' => 'Пароль повинен бути довжиною не менше 6 символів',
                     ]
                 )
             ]

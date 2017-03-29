@@ -9,7 +9,7 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
+        'host'        => 'localhost:3308',
         'username'    => 'root',
         'password'    => '',
         'dbname'      => 'test_db',
@@ -25,7 +25,6 @@ return new \Phalcon\Config([
         'pluginsDir'     => APP_PATH . '/plugins/',
         'libraryDir'     => APP_PATH . '/library/',
         'cacheDir'       => BASE_PATH . '/cache/',
-        'validationDir'  => APP_PATH . '/validator',
 
         // This allows the baseUri to be understand project paths that are not in the root directory
         // of the webpspace.  This will break if the public/index.php entry point is moved or
@@ -43,5 +42,11 @@ return new \Phalcon\Config([
             'email' => 'nick97it@gmail.com',
             'name'	=> 'Nick'
         ]
+    ],
+    'gravatar' => [
+        'default_image' => 'mm',
+        'rating'        => 'x',
+        'size'          => 110,
+        'use_https'     => true,
     ]
 ]);

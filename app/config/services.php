@@ -1,5 +1,6 @@
 <?php
 
+use Phalcon\Avatar\Gravatar;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
 use Phalcon\Mvc\Url as UrlResolver;
@@ -164,4 +165,10 @@ $di->setShared(
         return $mailer;
     }
 );
+
+$di->setShared('gravatar', function () {
+    $config = $this->getConfig();
+    $gravatar = new Gravatar($config->gravatar);
+    return $gravatar;
+});
 

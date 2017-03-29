@@ -81,3 +81,9 @@ var Validate = {
         }
     }
 };
+jQuery('form .eye').mousedown(function (event) {
+   $('input[name="password"]').attr('type', 'text');
+});
+jQuery('form .eye').mouseup(function (event) {
+    $('input[name="password"]').attr('type', 'password');
+});
