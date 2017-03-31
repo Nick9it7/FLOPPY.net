@@ -28,4 +28,12 @@ $router->add(
     ]
 );
 
+$router->add(
+    '/file/:action',
+    [
+        'controller'  => 'file',
+        'action'      => 1
+    ]
+);
+
 $router->handle();

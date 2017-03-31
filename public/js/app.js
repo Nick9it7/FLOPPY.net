@@ -87,3 +87,31 @@ jQuery('form .eye').mousedown(function (event) {
 jQuery('form .eye').mouseup(function (event) {
     $('input[name="password"]').attr('type', 'password');
 });
+
+/**
+
+$(document).on('click', '#upload', function(f) {
+    $("#myModal").modal('show');
+});
+
+
+var myDropzone = new Dropzone(document.body, {
+    url: "/file/upload",
+    uploadMultiple: true,
+    clickable: '#upload',
+    previewsContainer: '#preview'
+});
+ */
+$(document).ready(function() {
+    $('input.typeahead').typeahead({
+        name: 'continents',
+        local: [
+            'Africa',
+            'Antarctica',
+            'Asia',
+            'Europe',
+            'South America',
+            'North America'
+        ]
+    });
+});
