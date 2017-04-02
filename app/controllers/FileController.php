@@ -1,9 +1,32 @@
 <?php
 
+use Phalcon\Http\Response;
 use Phalcon\Mvc\Controller;
 
 class FileController extends Controller
 {
+    /**
+     * @var \Dropbox\Client
+     */
+    private $dbxClient;
+
+    /**
+     * @var string
+     */
+    private $removePath;
+
+    /**
+     * @var string
+     */
+    private $localPath;
+
+    public function initialize()
+    {
+        $config = $this->di->getConfig();
+        $this->dbxClient = new \Dropbox\Client($config->dropbox->access, "PHP-FLOPPY.net/1.0");
+        $this->removePath = '/user_' . $this->session->get('user_identity')['id'];
+        $this->localPath = BASE_PATH . '/cache/temp';
+    }
 
     public function indexAction()
     {
@@ -12,23 +35,41 @@ class FileController extends Controller
 
     public function downloadAction()
     {
+        if ($this->request->isPost()) {
+            $r = fopen($this->localPath, 'w+');
+            $fileMetadata = $this->dbxClient->getFile($this->removePath . '/' . $this->request->getPost('fileName'), $r);
+            fclose($r);
 
+            $response = new Response();
+            $response->setHeader("Cache-Control", 'must-revalidate, post-check=0, pre-check=0');
+            $response->setHeader("Content-Description", 'File Download');
+            $response->setHeader("Content-Type", $fileMetadata['mime_type']);
+            $response->setHeader("Content-Length", $fileMetadata['bytes']);
+            $response->setFileToSend($this->localPath, $this->request->getPost('fileName'), true);
+            $response->send();
+
+            unlink($this->localPath);
+            die();
+        }
     }
 
     public function uploadAction()
     {
-        #check if there is any file
         if ($this->request->hasFiles() == true) {
             $uploads = $this->request->getUploadedFiles();
-            $isUploaded = false;
-            #do a loop to handle each file individually
-            foreach ($uploads as $upload) {
-                #define a “unique” name and a path to where our file must go
-                $path = BASE_PATH . '/cache/' . md5(uniqid(rand(), true)) . '-' . strtolower($upload->getname());
-                #move the file and simultaneously check if everything was ok
-                ($upload->moveTo($path)) ? $isUploaded = true : $isUploaded = false;
 
+            foreach ($uploads as $upload) {
+
+                $upload->moveTo($this->localPath);
+                $this->dbxClient->createFolder($this->removePath);
+
+                $r = fopen($this->localPath,'r');
+                $this->dbxClient->uploadFile($this->removePath . '/' . $upload->getName(), \Dropbox\WriteMode::add(), $r);
+
+                fclose($r);
+                unlink($this->localPath);
             }
+
         }
     }
 }

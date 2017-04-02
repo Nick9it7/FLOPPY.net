@@ -9,9 +9,9 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost:3308',
+        'host'        => 'localhost',
         'username'    => 'root',
-        'password'    => '',
+        'password'    => 'drakonnik1',
         'dbname'      => 'test_db',
         'charset'     => 'utf8',
     ],
@@ -36,11 +36,11 @@ return new \Phalcon\Config([
         'host'	 	 => 'smtp.gmail.com',
         'port'	 	 => 465,
         'encryption' => 'ssl',
-        'username'   => 'nick97it@gmail.com',
-        'password'	 => 'rhatfyboqyzfkhvh',
+        'username'   => 'floppy.dot.net@gmail.com',
+        'password'	 => 'zubaqsclnelrbaak',
         'from'		 => [
-            'email' => 'nick97it@gmail.com',
-            'name'	=> 'Nick'
+            'email' => 'floppy.dot.net@gmail.com',
+            'name'	=> 'FLOPPY.net'
         ]
     ],
     'gravatar' => [
@@ -48,5 +48,10 @@ return new \Phalcon\Config([
         'rating'        => 'x',
         'size'          => 110,
         'use_https'     => true,
+    ],
+    'dropbox' => [
+        'key'    => 'weumrlj2xfjnp58',
+        'secret' => 'gl9rtzntuc0wij7',
+        'access' => 'vBcAZ0ux1_AAAAAAAAAAC7luSTSRM83W6Yw9mApJdGiFC6lL1QRp2J1DtkYbMsaO'
     ]
 ]);

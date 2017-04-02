@@ -103,7 +103,8 @@ class UserController extends Controller
 
                     if ($this->security->checkHash($password, $user->getPassword()) === true) {
                         $this->session->set('user_identity',[
-                            'id' => $user->getId()
+                            'id' => $user->getId(),
+                            'name' => $user->getName()
                         ]);
 
                         $this->flashSession->success('Вітаємо ' . $user->getName());

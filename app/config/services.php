@@ -172,3 +172,9 @@ $di->setShared('gravatar', function () {
     return $gravatar;
 });
 
+$di->setShared('dropbox', function () {
+    $config = $this->getConfig();
+    $appinfo = new \Dropbox\AppInfo($config->dropbox->key, $config->dropbox->secret);
+    return new \Dropbox\WebAuthNoRedirect($appinfo, 'PHP-FLOPPY.net/1.0');
+});
+

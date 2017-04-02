@@ -2,6 +2,7 @@
   "require": {
     "phalcon/devtools": "dev-master",
     "phalcon-ext/mailer": "~2.0",
-    "phalcon/incubator": "^3.0"
+    "phalcon/incubator": "^3.0",
+    "dropbox/dropbox-sdk": "1.1.*"
   }
 }
