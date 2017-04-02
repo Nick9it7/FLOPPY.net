@@ -92,6 +92,46 @@ jQuery('form .eye').mouseup(function (event) {
     $('input[name="password"]').attr('type', 'password');
 });
 
+$(function(){
+    Dropzone.options.myAwesomeDropzone = {
+        maxFilesize: 20000,
+        addRemoveLinks: true,
+        init:function(){
+            var self = this;
+
+            self.options.addRemoveLinks = true;
+            self.options.dictRemoveFile = "Видалити";
+
+            self.on("addedfile", function (file) {
+                file.previewElement.querySelector(".start").onclick = function () {
+                    myDropzone.enqueueFile(file);
+                    //console.log('new file added ', file);
+                }
+            });
+
+            self.on("sending", function (file) {
+                //console.log('upload started', file);
+                //$('.meter').show();
+            });
+
+            // File upload Progress
+            self.on("totaluploadprogress", function (progress) {
+                //console.log("progress ", progress);
+                //$('.roller').width(progress + '%');
+            });
+
+            self.on("queuecomplete", function (progress) {
+                //$('.meter').delay(999).slideUp(999);
+            });
+
+            // On removing file
+            self.on("removedfile", function (file) {
+                //myDropzone.removeFile(file);
+            });
+        }
+    };
+})
+/**
 var previewNode = document.querySelector("#template");
 previewNode.id = "";
 var previewTemplate = previewNode.parentNode.innerHTML;
@@ -103,9 +143,10 @@ var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
     thumbnailHeight: 80,
     parallelUploads: 20,
     previewTemplate: previewTemplate,
-    autoQueue: false, // Make sure the files aren't queued until manually added
-    previewsContainer: "#previews", // Define the container to display the previews
-    clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+    dictDefaultMessage: 'drag and drop',
+    autoProcessQueue: false,
+    previewsContainer: "#previews",
+    clickable: "#upload"
 });
 
 myDropzone.on("addedfile", function(file) {
@@ -130,15 +171,13 @@ myDropzone.on("queuecomplete", function(progress) {
     document.querySelector("#total-progress").style.opacity = "0";
 });
 
-// Setup the buttons for all transfers
-// The "add files" button doesn't need to be setup because the config
-// `clickable` has already been specified.
-document.querySelector("#actions .start").onclick = function() {
+document.querySelector(".modal-footer .start").onclick = function() {
     myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
 };
-document.querySelector("#actions .cancel").onclick = function() {
+document.querySelector(".modal-footer .cancel").onclick = function() {
     myDropzone.removeAllFiles(true);
 };
+/*************/
 
 $(document).ready(function (f) {
     var substringMatcher = function(strs) {
