@@ -96,102 +96,55 @@ $(function(){
     Dropzone.options.myAwesomeDropzone = {
         maxFilesize: 20000,
         addRemoveLinks: true,
+        autoProcessQueue: false,
         init:function(){
             var self = this;
 
             self.options.addRemoveLinks = true;
             self.options.dictRemoveFile = "Видалити";
 
+            var submitButton = document.querySelector(".start");
+
+            submitButton.addEventListener("click", function() {
+                self.processQueue();
+            });
             self.on("addedfile", function (file) {
-                file.previewElement.querySelector(".start").onclick = function () {
-                    myDropzone.enqueueFile(file);
-                    //console.log('new file added ', file);
-                }
+
             });
 
             self.on("sending", function (file) {
-                //console.log('upload started', file);
-                //$('.meter').show();
+
             });
 
-            // File upload Progress
+            self.on("success", function (file) {
+                jQuery('#myModal').modal('toggle');
+            });
+
             self.on("totaluploadprogress", function (progress) {
-                //console.log("progress ", progress);
-                //$('.roller').width(progress + '%');
+
             });
 
             self.on("queuecomplete", function (progress) {
-                //$('.meter').delay(999).slideUp(999);
+
             });
 
             // On removing file
             self.on("removedfile", function (file) {
-                //myDropzone.removeFile(file);
+                //self.removeFile(file);
             });
         }
     };
-})
-/**
-var previewNode = document.querySelector("#template");
-previewNode.id = "";
-var previewTemplate = previewNode.parentNode.innerHTML;
-previewNode.parentNode.removeChild(previewNode);
-
-var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-    url: "/file/upload", // Set the url
-    thumbnailWidth: 80,
-    thumbnailHeight: 80,
-    parallelUploads: 20,
-    previewTemplate: previewTemplate,
-    dictDefaultMessage: 'drag and drop',
-    autoProcessQueue: false,
-    previewsContainer: "#previews",
-    clickable: "#upload"
 });
 
-myDropzone.on("addedfile", function(file) {
-    // Hookup the start button
-    file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
-});
-
-// Update the total progress bar
-myDropzone.on("totaluploadprogress", function(progress) {
-    document.querySelector("#total-progress .progress-bar").style.width = progress + "%";
-});
-
-myDropzone.on("sending", function(file) {
-    // Show the total progress bar when upload starts
-    document.querySelector("#total-progress").style.opacity = "1";
-    // And disable the start button
-    file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
-});
-
-// Hide the total progress bar when nothing's uploading anymore
-myDropzone.on("queuecomplete", function(progress) {
-    document.querySelector("#total-progress").style.opacity = "0";
-});
-
-document.querySelector(".modal-footer .start").onclick = function() {
-    myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED));
-};
-document.querySelector(".modal-footer .cancel").onclick = function() {
-    myDropzone.removeAllFiles(true);
-};
-/*************/
-
-$(document).ready(function (f) {
+$(document).ready(function () {
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
             var matches, substringRegex;
 
-            // an array that will be populated with substring matches
             matches = [];
 
-            // regex used to determine if a string contains the substring `q`
             substrRegex = new RegExp(q, 'i');
 
-            // iterate through the pool of strings and for any string that
-            // contains the substring `q`, add it to the `matches` array
             $.each(strs, function(i, str) {
                 if (substrRegex.test(str)) {
                     matches.push(str);
@@ -202,16 +155,19 @@ $(document).ready(function (f) {
         };
     };
 
-    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
-        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
-        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
-        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
-        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
-        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
-        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
-        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-    ];
+    var user = [];
+
+    $('.typeahead').on('focus', function (e) {
+        $.ajax({
+            url: '/index/search',
+            success: function (data) {
+                $.each(data, function (index) {
+                    user[index] = data[index];
+
+                });
+            }
+        });
+    });
 
     $('#the-basics .typeahead').typeahead({
             hint: true,
@@ -219,7 +175,20 @@ $(document).ready(function (f) {
             minLength: 1
         },
         {
-            name: 'states',
-            source: substringMatcher(states)
-        });
+            name: 'user',
+            display: 'value',
+            source: substringMatcher(user),
+            templates: {
+                empty: [
+                    '<div class="empty-message">',
+                    'unable to find any Best Picture winners that match the current query',
+                    '</div>'
+                ].join('\n'),
+                suggestion: function (data) {
+                    return '<p><strong>' + data + '</strong> - ' + data.year + '</p>';
+                }
+            }
+
+        }
+    )
 });

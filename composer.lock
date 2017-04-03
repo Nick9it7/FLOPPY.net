@@ -266,12 +266,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/phalcon-devtools.git",
-                "reference": "b7ed070c3502e99d9b4b43e138cfae809bad33b5"
+                "reference": "428f3cfe56abb2ac59c8393c3eccfca559ee3246"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/b7ed070c3502e99d9b4b43e138cfae809bad33b5",
-                "reference": "b7ed070c3502e99d9b4b43e138cfae809bad33b5",
+                "url": "https://api.github.com/repos/phalcon/phalcon-devtools/zipball/428f3cfe56abb2ac59c8393c3eccfca559ee3246",
+                "reference": "428f3cfe56abb2ac59c8393c3eccfca559ee3246",
                 "shasum": ""
             },
             "require": {
@@ -315,24 +315,24 @@
                 "phar",
                 "webtools"
             ],
-            "time": "2017-03-23 19:08:33"
+            "time": "2017-04-01T22:43:36+00:00"
         },
         {
             "name": "phalcon/incubator",
-            "version": "v3.1.1",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phalcon/incubator.git",
-                "reference": "3f39a270e47e162a3e06140a337be6acc07aa6a4"
+                "reference": "25e06962e847189ea4087984fe10b8ebfb297457"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phalcon/incubator/zipball/3f39a270e47e162a3e06140a337be6acc07aa6a4",
-                "reference": "3f39a270e47e162a3e06140a337be6acc07aa6a4",
+                "url": "https://api.github.com/repos/phalcon/incubator/zipball/25e06962e847189ea4087984fe10b8ebfb297457",
+                "reference": "25e06962e847189ea4087984fe10b8ebfb297457",
                 "shasum": ""
             },
             "require": {
-                "ext-phalcon": "^3.1",
+                "ext-phalcon": "^3.0",
                 "php": ">=5.5",
                 "swiftmailer/swiftmailer": "~5.2"
             },
@@ -345,7 +345,7 @@
                 "phalcongelist/dd": "^1.0",
                 "phpdocumentor/reflection-docblock": "2.0.4",
                 "phpunit/phpunit": "^4.8",
-                "squizlabs/php_codesniffer": "^2.8",
+                "squizlabs/php_codesniffer": "^2.7",
                 "vlucas/phpdotenv": "^2.4"
             },
             "suggest": {
@@ -367,7 +367,7 @@
                 {
                     "name": "Phalcon Team",
                     "email": "team@phalconphp.com",
-                    "homepage": "https://phalconphp.com/en/team"
+                    "homepage": "http://phalconphp.com/en/team"
                 },
                 {
                     "name": "Contributors",
@@ -375,13 +375,13 @@
                 }
             ],
             "description": "Adapters, prototypes or functionality that can be potentially incorporated to the C-framework.",
-            "homepage": "https://phalconphp.com",
+            "homepage": "http://phalconphp.com",
             "keywords": [
                 "framework",
                 "incubator",
                 "phalcon"
             ],
-            "time": "2017-03-28T20:49:59+00:00"
+            "time": "2017-03-09T20:15:34+00:00"
         },
         {
             "name": "psr/log",

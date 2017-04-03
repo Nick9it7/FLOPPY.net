@@ -9,9 +9,9 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
+        'host'        => 'localhost:3308',
         'username'    => 'root',
-        'password'    => 'drakonnik1',
+        'password'    => '',
         'dbname'      => 'test_db',
         'charset'     => 'utf8',
     ],
@@ -52,6 +52,6 @@ return new \Phalcon\Config([
     'dropbox' => [
         'key'    => 'weumrlj2xfjnp58',
         'secret' => 'gl9rtzntuc0wij7',
-        'access' => 'vBcAZ0ux1_AAAAAAAAAAC7luSTSRM83W6Yw9mApJdGiFC6lL1QRp2J1DtkYbMsaO'
+        'access' => 'vBcAZ0ux1_AAAAAAAAAAKkiOsbGnr-sEJXA7DaWklzT8UKMLEwbRRRyHF3n0P8L8'
     ]
 ]);

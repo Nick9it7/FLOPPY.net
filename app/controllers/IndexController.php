@@ -14,4 +14,17 @@ class IndexController extends Controller
             $this->response->redirect('/user/login');
         }
     }
+
+    public function searchAction()
+    {
+        /**
+         * @var Users $user
+         */
+        $user = Users::find();
+        $name = [];
+        foreach ($user as $item) {
+            $name[] = $item->getName();
+        }
+        return $this->response->setJsonContent($name);
+    }
 }
