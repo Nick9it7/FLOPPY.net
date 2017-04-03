@@ -155,16 +155,22 @@ $(document).ready(function () {
         };
     };
 
-    var user = [];
+    var user = {
+        'name': {},
+        'url': {}
+    };
+
 
     $('.typeahead').on('focus', function (e) {
         $.ajax({
             url: '/index/search',
             success: function (data) {
-                $.each(data, function (index) {
-                    user[index] = data[index];
+                for (var i = 0; i < data.name.length; i++) {
+                    user.name[i] = data.name[i];
+                    user.url[i] = data.url[i];
+                }
 
-                });
+               //console.log(user);
             }
         });
     });
@@ -176,16 +182,15 @@ $(document).ready(function () {
         },
         {
             name: 'user',
-            source: substringMatcher(user),
+            display: 'name',
+            source: substringMatcher(user.name),
             templates: {
                 empty: [
                     '<div class="empty-message">',
-                    'unable to find any Best Picture winners that match the current query',
+                    'Збігів не знайдено',
                     '</div>'
                 ].join('\n'),
-                suggestion: function (data) {
-                    return '<p><strong>' + data + '</strong> - </p>';
-                }
+                suggestion: Handlebars.compile("<p style='padding:6px'><b>{{name}}{{url}}</b> - Release date </p>")
             }
 
         }

@@ -55,11 +55,20 @@ class Users extends Model
         return $this->validate($validator);
     }
 
+    /**
+     * Declared relationships many to one
+     */
     public function initialize()
     {
         $this->hasMany(
             'id',
             'PasswordRecovery',
+            'user'
+        );
+
+        $this->hasMany(
+            'id',
+            'Note',
             'user'
         );
     }
