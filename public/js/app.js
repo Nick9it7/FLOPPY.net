@@ -176,7 +176,6 @@ $(document).ready(function () {
         },
         {
             name: 'user',
-            display: 'value',
             source: substringMatcher(user),
             templates: {
                 empty: [
@@ -185,7 +184,7 @@ $(document).ready(function () {
                     '</div>'
                 ].join('\n'),
                 suggestion: function (data) {
-                    return '<p><strong>' + data + '</strong> - ' + data.year + '</p>';
+                    return '<p><strong>' + data + '</strong> - </p>';
                 }
             }
 
