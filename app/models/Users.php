@@ -52,6 +52,15 @@ class Users extends Model
             )
         );
 
+        $validator->add(
+            'name',
+            new Uniqueness(
+                [
+                    'message' => 'Вибачте. Користувач з таким ім\'ям вже загеєстрований'
+                ]
+            )
+        );
+
         return $this->validate($validator);
     }
 

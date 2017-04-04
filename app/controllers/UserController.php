@@ -182,9 +182,9 @@ class UserController extends Controller
                     $recovery->setActive(true);
                     $recovery->save();
 
-                    $url = 'phalconproject/recoverPassword/' . $recovery->getHash();
+                    $url = 'floppy.net/recoverPassword/' . $recovery->getHash();
                     $letter = 'To recover password go to ' . $this->tag->linkTo($url, 'url') . $this->tag->tagHtml('br');
-                    $url = 'phalconproject/recoverPasswordCancel/' . $recovery->getHash();
+                    $url = 'floppy.net/recoverPasswordCancel/' . $recovery->getHash();
                     $letter .= 'If you did not request a password recovery follow ' . $this->tag->linkTo($url, 'url');
 
                     $message = $this->mailer->createMessage()

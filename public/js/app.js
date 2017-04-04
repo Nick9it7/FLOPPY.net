@@ -92,16 +92,30 @@ jQuery('form .eye').mouseup(function (event) {
     $('input[name="password"]').attr('type', 'password');
 });
 
+/**
+ * Drog and drop files
+ */
 $(function(){
+    //var drop = $('#template-preview').html();
     Dropzone.options.myAwesomeDropzone = {
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
         maxFilesize: 20000,
-        addRemoveLinks: true,
+        //previewTemplate: drop,
+        //previewsContainer: '#template-preview',
         autoProcessQueue: false,
+        maxFiles: 1,
+        uploadMultiple: false,
         init:function(){
             var self = this;
 
             self.options.addRemoveLinks = true;
             self.options.dictRemoveFile = "Видалити";
+            self.options.dictCancelUpload = "Відмінити";
+            self.options.dictFileTooBig = "Файл дуже великий";
+            self.options.dictMaxFilesExceeded = "Не можна загружати більше файлів";
+            self.options.dictDefaultMessage = "Перетягніть сюди файл";
+            self.options.dictCancelUploadConfirmation = "Ви впевненні, що бажаєте відмінити загрузку?";
 
             var submitButton = document.querySelector(".start");
 
@@ -114,6 +128,7 @@ $(function(){
 
             self.on("sending", function (file) {
 
+
             });
 
             self.on("success", function (file) {
@@ -124,18 +139,22 @@ $(function(){
 
             });
 
-            self.on("queuecomplete", function (progress) {
-
-            });
-
-            // On removing file
             self.on("removedfile", function (file) {
-                //self.removeFile(file);
+                $.ajax({
+                    url: '/file/delete',
+                    method: 'post',
+                    data: {
+                        fileName: file.name
+                    }
+                });
             });
         }
     };
 });
 
+/**
+ * Search users
+ */
 $(document).ready(function () {
     var substringMatcher = function(strs) {
         return function findMatches(q, cb) {
@@ -155,22 +174,16 @@ $(document).ready(function () {
         };
     };
 
-    var user = {
-        'name': {},
-        'url': {}
-    };
+    var user = {};
 
 
     $('.typeahead').on('focus', function (e) {
         $.ajax({
             url: '/index/search',
             success: function (data) {
-                for (var i = 0; i < data.name.length; i++) {
-                    user.name[i] = data.name[i];
-                    user.url[i] = data.url[i];
-                }
-
-               //console.log(user);
+                $.each(data, function (index) {
+                    user[index] = data[index];
+                });
             }
         });
     });
@@ -182,15 +195,16 @@ $(document).ready(function () {
         },
         {
             name: 'user',
-            display: 'name',
-            source: substringMatcher(user.name),
+            source: substringMatcher(user),
             templates: {
                 empty: [
                     '<div class="empty-message">',
                     'Збігів не знайдено',
                     '</div>'
                 ].join('\n'),
-                suggestion: Handlebars.compile("<p style='padding:6px'><b>{{name}}{{url}}</b> - Release date </p>")
+                suggestion: function(data) {
+                    return '<p><strong>' + data + '</strong> </p>';
+                }
             }
 
         }

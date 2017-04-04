@@ -16,8 +16,6 @@ class IndexController extends Controller
 
     public function searchAction()
     {
-        $gravatar = $this->getDi()->getShared('gravatar');
-
         /**
          * @var Users $user
          */
@@ -25,8 +23,7 @@ class IndexController extends Controller
 
         $name = [];
         foreach ($user as $item) {
-            $name['url'][] =  $gravatar->getAvatar($item->getEmail());
-            $name['name'][] = $item->getName();
+            $name[] = $item->getName();
         }
         return $this->response->setJsonContent($name);
     }

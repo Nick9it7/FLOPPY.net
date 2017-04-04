@@ -72,4 +72,11 @@ class FileController extends Controller
 
         }
     }
+
+    public function deleteAction()
+    {
+        if ($this->request->isPost()) {
+            $this->dbxClient->delete($this->removePath . '/' . $this->request->getPost('fileName'));
+        }
+    }
 }

@@ -11,4 +11,24 @@ class NoteController extends Controller
 
         }
     }
+
+    public function showAction()
+    {
+        if ($this->request->isPost()) {
+
+            /**
+             * @var Users $user
+             */
+            $user = Users::findFirst(
+                [
+                    'name = :name:',
+                    'bind' => [
+                        'name' => $this->request->getPost('name'),
+                    ]
+                ]
+            );
+            
+            $this->view->user = $user;
+        }
+    }
 }
