@@ -9,6 +9,15 @@ class IndexController extends Controller
     {
         if ($this->session->has('user_identity')) {
 
+            $user = Users::findFirst(
+                [
+                    'id = :id:',
+                    'bind' => [
+                        'id' => $this->session->get('user_identity')['id']
+                    ]
+                ]
+            );
+            $this->view->user = $user;
         } else {
             $this->response->redirect('/user/login');
         }

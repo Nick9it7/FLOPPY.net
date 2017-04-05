@@ -133,6 +133,7 @@ $(function(){
 
             self.on("success", function (file) {
                 jQuery('#myModal').modal('toggle');
+                $('#hiddenFile').attr('value', file.name);
             });
 
             self.on("totaluploadprogress", function (progress) {
@@ -145,6 +146,9 @@ $(function(){
                     method: 'post',
                     data: {
                         fileName: file.name
+                    },
+                    success: function () {
+                        $('#hiddenFile').attr('value', '');
                     }
                 });
             });
@@ -203,7 +207,7 @@ $(document).ready(function () {
                     '</div>'
                 ].join('\n'),
                 suggestion: function(data) {
-                    return '<p><strong>' + data + '</strong> </p>';
+                    return '<div><strong>' + data + '</strong> </div>';
                 }
             }
 

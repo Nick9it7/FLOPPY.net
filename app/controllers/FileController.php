@@ -69,7 +69,6 @@ class FileController extends Controller
                 fclose($r);
                 unlink($this->localPath);
             }
-
         }
     }
 
