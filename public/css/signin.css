@@ -1,8 +1,7 @@
 body {
-  /**padding-top: 40px;
+  padding-top: 40px;
   padding-bottom: 40px;
   background: url('../img/bgmain.jpg') repeat;
-  **/
 }
 .form-signin {
   max-width: 330px;
@@ -38,15 +37,8 @@ h1{
     color:#fff;
     margin:0;
     }
-.btn-group-lg>.btn, .btn-lg{
-padding: 15px;
-border-radius: 3px;
-}
 .glyphicon-log-in{
-padding-right: 10px;
-}
-.glyphicon-user{
-  padding-right: 10px;
+    padding-right: 10px;
 }
 img{
   width: 100%;
@@ -56,13 +48,6 @@ img{
   font-size: 90px;
   text-shadow:2px 2px 5px #337ab7;
 
-}
-.eye {
-    font-size: large;
-    float: right;
-    top: -30px;
-    left: -20px;
-    z-index: 999;
 }
 @media only screen and (max-width : 1200px) {
 

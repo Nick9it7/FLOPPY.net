@@ -63,10 +63,13 @@ class FileController extends Controller
                 $upload->moveTo($this->localPath);
                 $this->dbxClient->createFolder($this->removePath);
 
-                $r = fopen($this->localPath,'r');
-                $this->dbxClient->uploadFile($this->removePath . '/' . $upload->getName(), \Dropbox\WriteMode::add(), $r);
 
-                fclose($r);
+                    $r = fopen($this->localPath,'r');
+                    $this->dbxClient->uploadFile($this->removePath . '/' . $upload->getName(), \Dropbox\WriteMode::add(), $r);
+
+                    fclose($r);
+
+
                 unlink($this->localPath);
             }
         }

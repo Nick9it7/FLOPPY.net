@@ -1,6 +1,7 @@
 <?php
 
 use Phalcon\Mvc\Model;
+use Phalcon\Validation;
 
 class Note extends Model
 {
@@ -20,9 +21,9 @@ class Note extends Model
     private $text;
 
     /**
-     * @var array
+     * @var string
      */
-    private $files = [];
+    private $file;
 
     /**
      * Declared relationships many to one
@@ -35,7 +36,21 @@ class Note extends Model
             'id'
         );
     }
-    
+
+    public function validation()
+    {
+        $validator = new Validation();
+
+        $validator->add(
+            'file',
+            new Email(
+                [
+                    'message' => 'Email введений невірно'
+                ]
+            )
+        );
+    }
+
     /**
      * @return int
      */
@@ -77,18 +92,18 @@ class Note extends Model
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getFiles()
+    public function getFile()
     {
-        return $this->files;
+        return $this->file;
     }
 
     /**
-     * @param array $files
+     * @param string $files
      */
-    public function setFiles($files)
+    public function setFile($file)
     {
-        $this->files = $files;
+        $this->file = $file;
     }
 }

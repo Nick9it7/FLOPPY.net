@@ -1,0 +1,23 @@
+.colorgraph {
+  height: 5px;
+  border-top: 0;
+  background: #6287ae;
+  border-radius: 5px;
+  
+}
+body{
+    background-image: url(../img/bgmain.jpg);
+}
+.container{
+    margin-top:10%;
+}
+h1{
+    color: #dfe6f0;
+}
+.row .btn{
+    color: #dfe6f0;
+}
+.send {
+    margin: 0 auto;
+    max-width: 300px;
+}

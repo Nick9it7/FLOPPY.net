@@ -31,6 +31,11 @@ class Users extends Model
      */
     private $password;
 
+    /**
+     * @var string
+     */
+    private $photo = null;
+
     public function validation()
     {
         $validator = new Validation();
@@ -135,5 +140,20 @@ class Users extends Model
     public function setPassword($password)
     {
         $this->password = $password;
+    }
+    /**
+     * @return string
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * @param string $photo
+     */
+    public function setPhoto($photo)
+    {
+        $this->photo = $photo;
     }
 }

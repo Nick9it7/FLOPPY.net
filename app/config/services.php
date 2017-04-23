@@ -152,6 +152,7 @@ $di->setShared(
 $di->setShared('gravatar', function () {
     $config = $this->getConfig();
     $gravatar = new Gravatar($config->gravatar);
+    return $gravatar;
 });
 
 $di->setShared('dropbox', function () {

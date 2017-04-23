@@ -10,7 +10,7 @@ class NoteController extends Controller
             $form = new NoteForm();
             $error = [];
 
-            if ($form->isValid($this->request->getPost()) === true) {
+            if ($form->isValid($this->request->getPost())) {
 
             } else {
                 foreach ($form->getMessages() as $message)

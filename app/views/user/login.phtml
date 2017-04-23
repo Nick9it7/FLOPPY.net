@@ -1,3 +1,4 @@
+<?= $this->tag->stylesheetLink('css/signin.css'); ?>
 <?= $this->tag->image([
             "img/1.png",
             'class' => 'hidden-xs hidden-md'
@@ -26,16 +27,18 @@
         )
         ?>
         <div class="form-group">
-            <label for="inputEmail" class="sr-only">Email address</label>
             <input name="email" type="text" id="inputEmail" class="form-control" placeholder="Електронна пошта">
         </div>
         <div class="form-group">
-            <label for="inputPassword" class="sr-only">Password</label>
             <input name="password" type="password" id="inputPassword" class="form-control" placeholder="Пароль">
             <span class="eye glyphicon glyphicon-eye-open"></span>
         </div>
-        <button style="margin-top: 15px" class="btn btn-lg btn-primary btn-block" type="submit"><i class="glyphicon glyphicon-log-in"></i>Увійти</button>
-        <a href="/user/register" class="btn btn-lg btn-primary btn-block"><i class="glyphicon glyphicon-user"></i>Зареєструватися</a>
+        <button style="margin-top: 15px" class="btn btn-lg btn-primary btn-block" type="submit">
+            <i class="glyphicon glyphicon-log-in"></i>Увійти
+        </button>
+        <a href="/user/register" class="btn btn-lg btn-primary btn-block">
+            <i class="glyphicon glyphicon-user"></i>Зареєструватися
+        </a>
         <?= $this->tag->endForm() ?>
     </div>
 </div>

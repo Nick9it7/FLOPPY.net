@@ -107,7 +107,7 @@ class UserController extends Controller
                             'name' => $user->getName()
                         ]);
 
-                        $this->flashSession->success('Вітаємо ' . $user->getName());
+                        //$this->flashSession->success('Вітаємо ' . $user->getName());
                         return $this->response->setJsonContent(
                             [
                                 'redirect' => 'index'

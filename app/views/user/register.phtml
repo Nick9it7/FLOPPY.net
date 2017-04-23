@@ -1,37 +1,56 @@
-<div class="panel panel-default panel-login-register" >
-    <div class="panel-heading head-login-register">
-        <div class="panel-title">Sign Up</div>
-    </div>
-    <div class="panel-body">
-        <?= $this->tag->form(
-            [
-                '/user/register',
-                'method' => "post",
-                'class' => "async"
-            ]
-        )
-        ?>
-            <div class="form-group">
-                <label for="email_field">Email</label>
-                <input type="text" name="email" id="email_field" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="name_field">Name</label>
-                <input type="text" name="name" id="name_field" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password_field">Password</label>
-                <input type="password" name="password" id="password_field" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="password_field">Confirm password</label>
-                <input type="password" name="confirmPassword" id="confirm_password_field" class="form-control">
-            </div>
-            <div class="form-group button-block text-right">
-                <div class="col-sm-12 controls">
-                    <button class="btn btn-default">Sign Up</button>
+<?= $this->tag->stylesheetLink('css/reg.css'); ?>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+            <?= $this->tag->form(
+                        [
+                            '/user/register',
+                            'method' => "post",
+                            'class' => "async"
+                        ]
+                    )
+            ?>
+                <h1 style="text-align: center">Реєстрація</h1>
+                <hr class="colorgraph">
+
+                <div class="form-group">
+                    <input type="text" name="email" id="email" class="form-control input-lg" placeholder="Email" tabindex="4">
                 </div>
-            </div>
-        <?= $this->tag->endForm() ?>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="text" name="name" id="last_name" class="form-control input-lg" placeholder="Name" tabindex="2">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" class="form-control input-lg" placeholder="Пароль" tabindex="5">
+                            <span class="eye glyphicon glyphicon-eye-open"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <input type="password" name="confirmPassword" id="password_confirmation" class="form-control input-lg" placeholder="Підтвердіть пароль" tabindex="6">
+                            <span class="eye glyphicon glyphicon-eye-open"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="colorgraph">
+                <div class="row send">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">
+                        <i class="glyphicon glyphicon-user"></i>Зареєструватися
+                    </button>
+                </div>
+            <?= $this->tag->endForm() ?>
+        </div>
     </div>
+
 </div>

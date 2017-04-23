@@ -32,6 +32,7 @@ var ajaxFormSubmit = function (event) {
 
     } else {
         callback = function (response) {
+            console.log(response);
             if (!($.isEmptyObject(response.error))) {
                 Validate.showErrorsMessages(response.error);
             } else {
@@ -63,14 +64,13 @@ var Validate = {
         jQuery('.errors-block').remove();
 
         $.each(errors, function (index) {
-
             item = errors[index];
 
             if (jQuery("input[name='" + item.field + "']").closest('.form-group').length === 0) {
                 jQuery("input[name='" + item.field + "']").closest('.input-group').after('<div class="label errors-block label-danger" style="padding-top: -15px;">' + item.message + '</div>');
             }
 
-            jQuery("input[name='" + item.field + "']").closest('.form-group').append('<div class="label errors-block label-danger">' + item.message + '</div>');
+            jQuery("input[name='" + item.field + "']").closest('.form-group').append('<div class="error label errors-block label-danger">' + item.message + '</div>');
             jQuery("select[name='" + item.field + "']").after('<span class="label errors-block label-danger">' + item.message + '</span>');
         });
     },
@@ -86,23 +86,22 @@ var Validate = {
  * Show/hide password
  */
 jQuery('form .eye').mousedown(function (event) {
-   $('input[name="password"]').attr('type', 'text');
+    var inputPass = event.target.parentNode.childNodes[1];
+    inputPass.type = 'text';
 });
 jQuery('form .eye').mouseup(function (event) {
-    $('input[name="password"]').attr('type', 'password');
+    var inputPass = event.target.parentNode.childNodes[1];
+    inputPass.type = 'password';
 });
 
 /**
  * Drog and drop files
  */
 $(function(){
-    //var drop = $('#template-preview').html();
     Dropzone.options.myAwesomeDropzone = {
         thumbnailWidth: 80,
         thumbnailHeight: 80,
         maxFilesize: 20000,
-        //previewTemplate: drop,
-        //previewsContainer: '#template-preview',
         autoProcessQueue: false,
         maxFiles: 1,
         uploadMultiple: false,
@@ -128,12 +127,12 @@ $(function(){
 
             self.on("sending", function (file) {
 
-
             });
 
             self.on("success", function (file) {
                 jQuery('#myModal').modal('toggle');
-                $('#hiddenFile').attr('value', file.name);
+                $('.add form input[type="hidden"]').attr('value', file.name);
+
             });
 
             self.on("totaluploadprogress", function (progress) {
@@ -192,7 +191,7 @@ $(document).ready(function () {
         });
     });
 
-    $('#the-basics .typeahead').typeahead({
+    $('.typeahead').typeahead({
             hint: true,
             highlight: true,
             minLength: 1

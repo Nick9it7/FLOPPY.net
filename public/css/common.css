@@ -1,0 +1,14 @@
+.eye {
+    font-size: large;
+    float: right;
+    top: -30px;
+    left: -20px;
+    z-index: 999;
+}
+.btn-group-lg>.btn, .btn-lg{
+    padding: 15px;
+    border-radius: 3px;
+}
+.glyphicon-user{
+    padding-right: 10px;
+}
