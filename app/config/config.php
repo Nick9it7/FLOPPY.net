@@ -9,9 +9,9 @@ defined('APP_PATH') || define('APP_PATH', BASE_PATH . '/app');
 return new \Phalcon\Config([
     'database' => [
         'adapter'     => 'Mysql',
-        'host'        => 'localhost',
+        'host'        => 'localhost:3308',
         'username'    => 'root',
-        'password'    => 'drakonnik1',
+        'password'    => '',
         'dbname'      => 'test_db',
         'charset'     => 'utf8',
     ],

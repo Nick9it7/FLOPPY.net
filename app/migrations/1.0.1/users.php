@@ -60,7 +60,7 @@ class UsersMigration_101 extends Migration
                         'photo',
                         [
                             'type' => Column::TYPE_VARCHAR,
-                            'notNull' => false,
+                            'notNull' => true,
                             'size' => 255,
                             'after' => 'password'
                         ]

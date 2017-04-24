@@ -4,23 +4,12 @@
             <div class="col-md-3">
                 <div class="row pic">
                     <div class="col-md-12">
-                        <?
-                            $type = ['.jpg', '.gif', '.png'];
-                            foreach ($type as $item) {
-                                $path = '/img/userImages/user_img_' . $user->getId() . $item;
-                                if (file_exists(BASE_PATH . '/public' .  $path)) {
-                                    $src = $path;
-                                } else {
-                                    $gravatar = $this->getDi()->getShared('gravatar');
-                                    $src = $gravatar->getAvatar($user->getEmail());
-                                }
-                            }
-                        ?>
+                        <input type="file" style="display: none;" name="photo" id="<?= $user->getId() ?>"/>
                         <img src='<?= $src ?>' alt="" class="img-thumbnail center_img">
                     </div>
                 </div>
 
-                <div class="row ">
+                <div class="row">
                     <div class="col-md-12 nick_name">
                         <?= $user->getName() ?>
                     </div>
@@ -83,7 +72,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Upload files</h4>
+                <h4 class="modal-title">Загрузка файла</h4>
             </div>
 
             <div class="modal-body">

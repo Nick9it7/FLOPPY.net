@@ -95,13 +95,56 @@ jQuery('form .eye').mouseup(function (event) {
 });
 
 /**
+ * Select img file for user profile
+ */
+$(".center_img").on('click',function(){
+    $("input[name='photo']").click();
+});
+
+/**
+ * Upload user photo
+ */
+
+$("input[name='photo']").change(function () {
+    var file = event.target.files;
+    var id = event.target.id;
+
+    var data = new FormData();
+
+    var error = 0;
+
+    if(!file[0].type.match('image.*')) {
+        alert('Images only. Select another file');
+        error = 1;
+    } else if(file.size > 1048576) {
+        alert('Too large Payload ( < 1 Mb). Select another file');
+        error = 1;
+    } else {
+        data.append('image', file[0], file[0].name);
+    }
+
+    if(!error) {
+        $.ajax({
+            url: "/index/photo/?user=" + id,
+            type: "POST",
+            data: data,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                $('.center_img').attr('src', res);
+            }
+        });
+    }
+});
+
+/**
  * Drog and drop files
  */
 $(function(){
     Dropzone.options.myAwesomeDropzone = {
         thumbnailWidth: 80,
         thumbnailHeight: 80,
-        maxFilesize: 20000,
+        maxFilesize: 200000,
         autoProcessQueue: false,
         maxFiles: 1,
         uploadMultiple: false,

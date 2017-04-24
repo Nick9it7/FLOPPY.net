@@ -36,4 +36,13 @@ $router->add(
     ]
 );
 
+$router->add(
+    '/index/photo/:user',
+    [
+        'controller'  => 'index',
+        'action'      => 'photo',
+        'user'        => 1
+    ]
+);
+
 $router->handle();

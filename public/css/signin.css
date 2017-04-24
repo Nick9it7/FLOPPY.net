@@ -30,7 +30,7 @@ body {
 .formcoordination{
     position: relative;
     margin-top:15%;
-    }
+}
 h1{
     font-size: 70px;
     font-family: 'Jura', sans-serif;
@@ -50,7 +50,9 @@ img{
 
 }
 @media only screen and (max-width : 1200px) {
-
+    .formcoordination{
+        margin-top:160px;
+    }
 }
 
 /* Medium Devices, Desktops */

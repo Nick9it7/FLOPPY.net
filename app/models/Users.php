@@ -34,7 +34,7 @@ class Users extends Model
     /**
      * @var string
      */
-    private $photo = null;
+    private $photo;
 
     public function validation()
     {
@@ -155,5 +155,13 @@ class Users extends Model
     public function setPhoto($photo)
     {
         $this->photo = $photo;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasPhoto()
+    {
+        return ($this->getPhoto() !== null) ? true : false;
     }
 }

@@ -18,7 +18,7 @@ class RegistrationForm extends ValidForm
 
 
         $name = new Text('name');
-        $name->setLabel('Nickname');
+        $name->setLabel('Логін');
         $this->filter($name);
         $this->requiredValidator($name);
         $this->add($name);
