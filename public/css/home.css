@@ -6,6 +6,9 @@ body {
     margin-left: 0;
     margin-right: 0;
 }
+.search-buttom {
+    top:-2px;
+}
 .navbar-nav{
     margin-left: -22px;
 }
@@ -14,7 +17,7 @@ body {
     font-family: 'PT Sans Caption';
     font-size: 15px;
     margin-bottom: -10px;
-    padding-bottom: 10px;
+    padding-bottom: 15px;
 }
 .navbar-default .navbar-nav>li>a:hover{
     border-bottom: 7px solid #edeef0;
@@ -38,7 +41,14 @@ body {
 .navbar-default .navbar-toggle .icon-bar{
    background-color: white;
 }
-
+.logo {
+    font-size: 40px;
+    color: #ffffff;
+    margin: 10px 15px 0 0;
+}
+#navbar {
+    padding-top: 5px;
+}
 /***********************prof_pic***************/
 
 .row .add{
