@@ -12,6 +12,20 @@ class NoteController extends Controller
 
             if ($form->isValid($this->request->getPost())) {
 
+                /**
+                 * @var Note $note
+                 */
+                $note = new Note();
+                $note->setUser($this->session->get('user_identity')['id']);
+                $note->setText($this->request->getPost('desc'));
+                $note->setFile($this->request->getPost('file'));
+                if ($note->save()) {
+                    return $this->response->setJsonContent(
+                        [
+                            'note' => $note
+                        ]
+                    );
+                }
             } else {
                 foreach ($form->getMessages() as $message)
                     $error[] = [

@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class UsersMigration_101
+ * Class SubscriptionMigration_102
  */
-class UsersMigration_101 extends Migration
+class SubscriptionMigration_102 extends Migration
 {
     /**
      * Define the table structure
@@ -17,7 +17,7 @@ class UsersMigration_101 extends Migration
      */
     public function morph()
     {
-        $this->morphTable('users', [
+        $this->morphTable('subscription', [
                 'columns' => [
                     new Column(
                         'id',
@@ -30,39 +30,21 @@ class UsersMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'email',
+                        'subscriber',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type' => Column::TYPE_INTEGER,
                             'notNull' => true,
-                            'size' => 255,
+                            'size' => 11,
                             'after' => 'id'
                         ]
                     ),
                     new Column(
-                        'name',
+                        'user',
                         [
-                            'type' => Column::TYPE_VARCHAR,
+                            'type' => Column::TYPE_INTEGER,
                             'notNull' => true,
-                            'size' => 255,
-                            'after' => 'email'
-                        ]
-                    ),
-                    new Column(
-                        'password',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => true,
-                            'size' => 255,
-                            'after' => 'name'
-                        ]
-                    ),
-                    new Column(
-                        'photo',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => false,
-                            'size' => 255,
-                            'after' => 'password'
+                            'size' => 11,
+                            'after' => 'subscriber'
                         ]
                     )
                 ],
@@ -71,7 +53,7 @@ class UsersMigration_101 extends Migration
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '14',
+                    'AUTO_INCREMENT' => '1',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],

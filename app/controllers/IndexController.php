@@ -46,7 +46,7 @@ class IndexController extends Controller
     {
         if ($this->request->hasFiles() == true) {
             $upload = $this->request->getUploadedFiles();
-            $id = $this->request->get('user');
+            $id = $this->session->get('user_identity')['id'];
 
             /**
              * @var Users $user
@@ -59,7 +59,7 @@ class IndexController extends Controller
                     ]
                 ]
             );
-            $path = '/public/img/userImages/user_avatar_' . $id . '.' . $upload[0]->getExtension();
+            $path = '/public/img/userImages/user_avatar_' . $id . '_' . md5($upload[0]->getName()) . '.' . $upload[0]->getExtension();
 
             if ($user->hasPhoto()) {
                 unlink(BASE_PATH . $user->getPhoto());
@@ -73,12 +73,6 @@ class IndexController extends Controller
 
                 return $this->response->setJsonContent($path);
             }
-//            if ($user->hasPhoto()) {
-//                $src = $user->getPhoto();
-//            } else {
-//                $gravatar = $this->getDi()->getShared('gravatar');
-//                $src = $gravatar->getAvatar($user->getEmail());
-//            }
         }
     }
 }

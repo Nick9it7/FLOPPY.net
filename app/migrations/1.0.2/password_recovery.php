@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class NoteMigration_101
+ * Class PasswordRecoveryMigration_102
  */
-class NoteMigration_101 extends Migration
+class PasswordRecoveryMigration_102 extends Migration
 {
     /**
      * Define the table structure
@@ -17,7 +17,7 @@ class NoteMigration_101 extends Migration
      */
     public function morph()
     {
-        $this->morphTable('note', [
+        $this->morphTable('password_recovery', [
                 'columns' => [
                     new Column(
                         'id',
@@ -39,7 +39,7 @@ class NoteMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'text',
+                        'hash',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
@@ -48,12 +48,12 @@ class NoteMigration_101 extends Migration
                         ]
                     ),
                     new Column(
-                        'file',
+                        'active',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 255,
-                            'after' => 'text'
+                            'after' => 'hash'
                         ]
                     )
                 ],
@@ -62,7 +62,7 @@ class NoteMigration_101 extends Migration
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '1',
+                    'AUTO_INCREMENT' => '40',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
@@ -77,57 +77,6 @@ class NoteMigration_101 extends Migration
      */
     public function up()
     {
-        $this->morphTable('note', [
-                'columns' => [
-                    new Column(
-                        'id',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'notNull' => true,
-                            'autoIncrement' => true,
-                            'size' => 11,
-                            'first' => true
-                        ]
-                    ),
-                    new Column(
-                        'user',
-                        [
-                            'type' => Column::TYPE_INTEGER,
-                            'notNull' => true,
-                            'size' => 11,
-                            'after' => 'id'
-                        ]
-                    ),
-                    new Column(
-                        'text',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => true,
-                            'size' => 255,
-                            'after' => 'user'
-                        ]
-                    ),
-                    new Column(
-                        'file',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => true,
-                            'size' => 255,
-                            'after' => 'text'
-                        ]
-                    )
-                ],
-                'indexes' => [
-                    new Index('PRIMARY', ['id'], 'PRIMARY')
-                ],
-                'options' => [
-                    'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '1',
-                    'ENGINE' => 'InnoDB',
-                    'TABLE_COLLATION' => 'utf8_general_ci'
-                ],
-            ]
-        );
 
     }
 

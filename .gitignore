@@ -2,3 +2,5 @@
 vendor/
 cache/*
 phalcon.bat
+!/public/img/userImages/
+public/img/userImages/

@@ -4,7 +4,15 @@
             <div class="col-md-3">
                 <div class="row pic">
                     <div class="col-md-12">
-                        <input type="file" style="display: none;" name="photo" id="<?= $user->getId() ?>"/>
+                        <?php
+                            if ($user->hasPhoto()) {
+                                $src = $user->getPhoto();
+                            } else {
+                                $gravatar = $this->getDi()->getShared('gravatar');
+                                $src = $gravatar->getAvatar($user->getEmail());
+                            }
+                        ?>
+                        <input type="file" style="display: none;" name="photo"/>
                         <img src='<?= $src ?>' alt="" class="img-thumbnail center_img">
                     </div>
                 </div>
@@ -40,26 +48,30 @@
 
                 <div class="wall">
                     <div class="added_file_block">
-                        <div class="row added">
-                            <div class="col-md-1 text-center first">
-                                <i class="glyphicon glyphicon-floppy-saved"></i>
-                            </div>
-
-                            <div class="col-md-10">
-                                <div class="description">
-
+                        <?php
+                            $articles = $user->note;
+                            foreach ($articles as $note):
+                                var_dump($note)
+                        ?>
+                            <div class="row added">
+                                <div class="col-md-1 text-center first">
+                                    <i class="glyphicon glyphicon-floppy-saved"></i>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="description">
+                                        <?= $note->getText() ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 text-center first">
+                                    <form action="/file/download" method="post">
+                                        <input type="hidden" name="fileName" value="<?= $note->getFile() ?>">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="glyphicon glyphicon-save"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
-
-                            <div class="col-md-1 text-center first">
-                                <form action='/file/download' method="post">
-                                    <input type="hidden" name="fileName" value="DSC_0145.jpg">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="glyphicon glyphicon-save"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
+                        <? endforeach; ?>
                     </div>
                 </div>
             </div>

@@ -32,11 +32,12 @@ var ajaxFormSubmit = function (event) {
 
     } else {
         callback = function (response) {
-            console.log(response);
             if (!($.isEmptyObject(response.error))) {
                 Validate.showErrorsMessages(response.error);
-            } else {
+            } else if(!($.isEmptyObject(response.redirect))) {
                 Validate.redirect(response.redirect);
+            } else if (!($.isEmptyObject(response.note))) {
+                Validate.note(response.note)
             }
         }
     }
@@ -79,6 +80,27 @@ var Validate = {
         if (url !== undefined) {
             window.location.assign(url);
         }
+    },
+
+    note: function (note) {
+        $('.added_file_block').prepend('' +
+            '<div class="row added">' +
+            '   <div class="col-md-1 text-center first">' +
+            '       <i class="glyphicon glyphicon-floppy-saved"></i>' +
+            '   </div>' +
+            '   <div class="col-md-10">' +
+            '       <div class="description">' + note.text + '</div>' +
+            '   </div>' +
+            '   <div class="col-md-1 text-center first">' +
+            '       <form action="/file/download" method="post">' +
+            '           <input type="hidden" name="fileName" value="' + note.file + '">' +
+            '           <button type="submit" class="btn btn-default">' +
+            '               <i class="glyphicon glyphicon-save"></i>' +
+            '           </button>' +
+            '       </form>' +
+            '   </div>' +
+            '</div>'
+        );
     }
 };
 
@@ -104,37 +126,37 @@ $(".center_img").on('click',function(){
 /**
  * Upload user photo
  */
+$(document).ready(function () {
+    $("input[name='photo']").change(function () {
+        var file = event.target.files;
+        var id = event.target.id;
 
-$("input[name='photo']").change(function () {
-    var file = event.target.files;
-    var id = event.target.id;
+        var data = new FormData();
 
-    var data = new FormData();
+        var error = 0;
 
-    var error = 0;
+        if (!file[0].type.match('image.*')) {
+            alert('Тільки зображення. Виберіть інший файл');
+            error = 1;
+        } else if (file[0].size > 7048810) {
+            alert('Розмір файла перевищує 2 Mb. Виберіть інший файл');
+            error = 1;
+        } else data.append('image', file[0], file[0].name);
 
-    if(!file[0].type.match('image.*')) {
-        alert('Images only. Select another file');
-        error = 1;
-    } else if(file.size > 1048576) {
-        alert('Too large Payload ( < 1 Mb). Select another file');
-        error = 1;
-    } else {
-        data.append('image', file[0], file[0].name);
-    }
 
-    if(!error) {
-        $.ajax({
-            url: "/index/photo/?user=" + id,
-            type: "POST",
-            data: data,
-            processData: false,
-            contentType: false,
-            success: function (res) {
-                $('.center_img').attr('src', res);
-            }
-        });
-    }
+        if (!error) {
+            $.ajax({
+                url: "/index/photo",
+                type: "POST",
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function (res) {
+                    $('.center_img').attr('src', res);
+                }
+            });
+        }
+    });
 });
 
 /**
@@ -254,5 +276,5 @@ $(document).ready(function () {
             }
 
         }
-    )
+    );
 });

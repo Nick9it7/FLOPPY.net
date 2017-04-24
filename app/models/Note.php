@@ -2,6 +2,7 @@
 
 use Phalcon\Mvc\Model;
 use Phalcon\Validation;
+use Phalcon\Validation\Validator\File;
 
 class Note extends Model
 {
@@ -34,20 +35,6 @@ class Note extends Model
             'user',
             'Users',
             'id'
-        );
-    }
-
-    public function validation()
-    {
-        $validator = new Validation();
-
-        $validator->add(
-            'file',
-            new Email(
-                [
-                    'message' => 'Email введений невірно'
-                ]
-            )
         );
     }
 
@@ -100,7 +87,7 @@ class Note extends Model
     }
 
     /**
-     * @param string $files
+     * @param string $file
      */
     public function setFile($file)
     {

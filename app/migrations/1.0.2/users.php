@@ -6,9 +6,9 @@ use Phalcon\Db\Reference;
 use Phalcon\Mvc\Model\Migration;
 
 /**
- * Class UsersMigration_101
+ * Class UsersMigration_102
  */
-class UsersMigration_101 extends Migration
+class UsersMigration_102 extends Migration
 {
     /**
      * Define the table structure
@@ -55,15 +55,6 @@ class UsersMigration_101 extends Migration
                             'size' => 255,
                             'after' => 'name'
                         ]
-                    ),
-                    new Column(
-                        'photo',
-                        [
-                            'type' => Column::TYPE_VARCHAR,
-                            'notNull' => false,
-                            'size' => 255,
-                            'after' => 'password'
-                        ]
                     )
                 ],
                 'indexes' => [
@@ -71,7 +62,7 @@ class UsersMigration_101 extends Migration
                 ],
                 'options' => [
                     'TABLE_TYPE' => 'BASE TABLE',
-                    'AUTO_INCREMENT' => '14',
+                    'AUTO_INCREMENT' => '13',
                     'ENGINE' => 'InnoDB',
                     'TABLE_COLLATION' => 'utf8_general_ci'
                 ],
