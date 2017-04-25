@@ -36,6 +36,9 @@ class Users extends Model
      */
     private $photo;
 
+    /**
+     * @return bool
+     */
     public function validation()
     {
         $validator = new Validation();
@@ -77,6 +80,12 @@ class Users extends Model
         $this->hasMany(
             'id',
             'PasswordRecovery',
+            'user'
+        );
+
+        $this->hasOne(
+            'id',
+            'Subscription',
             'user'
         );
 
@@ -163,5 +172,28 @@ class Users extends Model
     public function hasPhoto()
     {
         return ($this->getPhoto() !== null) ? true : false;
+    }
+
+    /**
+     * @param $user
+     * @return bool
+     */
+    public function hasSubscribed($sesseionUser,$user)
+    {
+        $subscripe = Subscription::findFirst(
+            [
+                'subscriber = :subscriber: AND user = :user:',
+                'bind' => [
+                    'subscriber' => $sesseionUser,
+                    'user' => $user
+                ]
+            ]
+        );
+
+        if ($subscripe === false) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

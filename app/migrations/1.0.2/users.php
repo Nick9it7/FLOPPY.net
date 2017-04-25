@@ -55,6 +55,15 @@ class UsersMigration_102 extends Migration
                             'size' => 255,
                             'after' => 'name'
                         ]
+                    ),
+                    new Column(
+                        'photo',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => false,
+                            'size' => 255,
+                            'after' => 'password'
+                        ]
                     )
                 ],
                 'indexes' => [

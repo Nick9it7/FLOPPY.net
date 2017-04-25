@@ -38,6 +38,10 @@ var ajaxFormSubmit = function (event) {
                 Validate.redirect(response.redirect);
             } else if (!($.isEmptyObject(response.note))) {
                 Validate.note(response.note)
+            } else if (response.subscripe) {
+                Validate.subscripe(response.subscripe)
+            } else if (response.unsubscripe) {
+                Validate.unsubscripe(response.unsubscripe)
             }
         }
     }
@@ -101,6 +105,17 @@ var Validate = {
             '   </div>' +
             '</div>'
         );
+        $('.description input[name="desc"]').val('');
+    },
+
+    subscripe: function (subscripe) {
+        $('.buttom button span').text('Unsubscripe');
+        $('.buttom').attr('action', '/anotheruser/unsubscripe');
+    },
+
+    unsubscripe: function (unsubscripe) {
+        $('.buttom button span').text('Subscripe');
+        $('.buttom').attr('action', '/anotheruser/Subscripe');
     }
 };
 
@@ -123,10 +138,11 @@ $(".center_img").on('click',function(){
     $("input[name='photo']").click();
 });
 
-/**
- * Upload user photo
- */
+
 $(document).ready(function () {
+    /**
+     * Upload user photo
+     */
     $("input[name='photo']").change(function () {
         var file = event.target.files;
         var id = event.target.id;
@@ -156,6 +172,19 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('.subscription').on('click', function () {
+        $.ajax({
+            url: "/index/subscripelist",
+            type: "POST",
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                console.log(res);
+            }
+        });
+
     });
 });
 

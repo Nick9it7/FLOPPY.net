@@ -150,6 +150,9 @@ hr{
 .form-group {
     margin: 0 !important;
 }
+.added_file_block h1 {
+    text-align: center;
+}
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
 	

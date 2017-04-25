@@ -40,29 +40,4 @@ class NoteController extends Controller
             return $this->response;
         }
     }
-
-    public function showAction()
-    {
-        if ($this->request->isPost()) {
-
-            /**
-             * @var Users $user
-             */
-            $user = Users::findFirst(
-                [
-                    'name = :name:',
-                    'bind' => [
-                        'name' => $this->request->getPost('name'),
-                    ]
-                ]
-            );
-
-            if ($user === false) {
-                //return 'user not found';
-            } else {
-                $this->view->user = $user;
-            }
-
-        }
-    }
 }

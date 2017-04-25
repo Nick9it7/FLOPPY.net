@@ -37,9 +37,25 @@ class IndexController extends Controller
         return $this->response->setJsonContent($name);
     }
 
-    public function subscriptionsAction()
+    public function subscripeListAction()
     {
+        if ($this->request->isPost()) {
 
+            $user = Subscription::find(
+                [
+                    'subscriber = :subscriber:',
+                    'bind' => [
+                        'subscriber' => $this->session->get('user_identity')['id']
+                    ]
+                ]
+            );
+            $test = $user->users;
+            return $this->response->setJsonContent(
+                [
+                    'users' => $user->users
+                ]
+            );
+        }
     }
 
     public function photoAction()

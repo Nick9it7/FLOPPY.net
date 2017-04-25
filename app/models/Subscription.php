@@ -24,14 +24,8 @@ class Subscription extends Model
      */
     public function initialize()
     {
-        $this->belongsTo(
+        $this->hasOne(
             'user',
-            'Users',
-            'id'
-        );
-
-        $this->belongsTo(
-            'subscriber',
             'Users',
             'id'
         );

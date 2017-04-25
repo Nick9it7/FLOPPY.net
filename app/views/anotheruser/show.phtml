@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <?= $this->view->partial('profile/info') ?>
+            <?php
+            if (!$user->hasSubscribed($this->session->get('user_identity')['id'], $user->getId())) {
+                $action = '/anotheruser/subscripe';
+                $text = 'Subscripe';
+            } else {
+                $action = '/anotheruser/unsubscripe';
+                $text = 'Unsubscripe';
+            }
+            ?>
+            <form method="post" action="<?= $action ?>" class="buttom async">
+                <input type="hidden" name="subscriber" value="<?= $user->getId()?>">
+                <button type="submit">
+                    <span><?= $text ?></span>
+                </button>
+            </form>
+            <div class="col-md-9 cont">
+                <?= $this->view->partial('profile/wall') ?>
+            </div>
+        </div>
+    </div>
+</div>
