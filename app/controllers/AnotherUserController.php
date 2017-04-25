@@ -34,7 +34,7 @@ class AnotherUserController extends Controller
         }
     }
 
-    public function subscripeAction()
+    public function subscribeAction()
     {
         if ($this->request->isPost()) {
 
@@ -44,13 +44,13 @@ class AnotherUserController extends Controller
             $res = $subscription->save();
             return $this->response->setJsonContent(
                 [
-                    'subscripe' => $res
+                    'subscribe' => $res
                 ]
             );
         }
     }
 
-    public function unsubscripeAction()
+    public function unsubscribeAction()
     {
         if ($this->request->isPost()) {
             $subscription = Subscription::findFirst(
@@ -65,7 +65,7 @@ class AnotherUserController extends Controller
             $res = $subscription->delete();
             return $this->response->setJsonContent(
                 [
-                    'unsubscripe' => $res
+                    'unsubscribe' => $res
                 ]
             );
         }

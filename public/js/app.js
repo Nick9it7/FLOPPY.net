@@ -38,10 +38,10 @@ var ajaxFormSubmit = function (event) {
                 Validate.redirect(response.redirect);
             } else if (!($.isEmptyObject(response.note))) {
                 Validate.note(response.note)
-            } else if (response.subscripe) {
-                Validate.subscripe(response.subscripe)
-            } else if (response.unsubscripe) {
-                Validate.unsubscripe(response.unsubscripe)
+            } else if (response.subscribe) {
+                Validate.subscribe(response.subscribe)
+            } else if (response.unsubscribe) {
+                Validate.unsubscribe(response.unsubscribe)
             }
         }
     }
@@ -108,14 +108,14 @@ var Validate = {
         $('.description input[name="desc"]').val('');
     },
 
-    subscripe: function (subscripe) {
-        $('.buttom button span').text('Unsubscripe');
-        $('.buttom').attr('action', '/anotheruser/unsubscripe');
+    subscribe: function (subscribe) {
+        $('.buttom button span').text('Unsubscribe');
+        $('.buttom').attr('action', '/anotheruser/unsubscribe');
     },
 
-    unsubscripe: function (unsubscripe) {
-        $('.buttom button span').text('Subscripe');
-        $('.buttom').attr('action', '/anotheruser/Subscripe');
+    unsubscribe: function (unsubscribe) {
+        $('.buttom button span').text('Subscribe');
+        $('.buttom').attr('action', '/anotheruser/Subscribe');
     }
 };
 
@@ -176,7 +176,7 @@ $(document).ready(function () {
 
     $('.subscription').on('click', function () {
         $.ajax({
-            url: "/index/subscripelist",
+            url: "/index/subscribelist",
             type: "POST",
             processData: false,
             contentType: false,

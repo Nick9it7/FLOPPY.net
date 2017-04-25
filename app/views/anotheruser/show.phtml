@@ -4,11 +4,11 @@
             <?= $this->view->partial('profile/info') ?>
             <?php
             if (!$user->hasSubscribed($this->session->get('user_identity')['id'], $user->getId())) {
-                $action = '/anotheruser/subscripe';
-                $text = 'Subscripe';
+                $action = '/anotheruser/subscribe';
+                $text = 'Subscribe';
             } else {
-                $action = '/anotheruser/unsubscripe';
-                $text = 'Unsubscripe';
+                $action = '/anotheruser/unsubscribe';
+                $text = 'Unsubscribe';
             }
             ?>
             <form method="post" action="<?= $action ?>" class="buttom async">

@@ -37,7 +37,7 @@ class IndexController extends Controller
         return $this->response->setJsonContent($name);
     }
 
-    public function subscripeListAction()
+    public function subscribeListAction()
     {
         if ($this->request->isPost()) {
 

@@ -180,7 +180,7 @@ class Users extends Model
      */
     public function hasSubscribed($sesseionUser,$user)
     {
-        $subscripe = Subscription::findFirst(
+        $subscribe = Subscription::findFirst(
             [
                 'subscriber = :subscriber: AND user = :user:',
                 'bind' => [
@@ -190,7 +190,7 @@ class Users extends Model
             ]
         );
 
-        if ($subscripe === false) {
+        if ($subscribe === false) {
             return false;
         } else {
             return true;
