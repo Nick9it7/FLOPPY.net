@@ -41,7 +41,7 @@ class IndexController extends Controller
     {
         if ($this->request->isPost()) {
 
-            $user = Subscription::find(
+            $users = Subscription::find(
                 [
                     'subscriber = :subscriber:',
                     'bind' => [
@@ -49,10 +49,20 @@ class IndexController extends Controller
                     ]
                 ]
             );
-            $test = $user->users;
+
+            if ($users === false) {
+                return $this->response->setJsonContent($users);
+            }
+
+            $subscribers = [];
+
+            foreach ($users as $user) {
+                $subscribers[] = $user->users;
+            }
+
             return $this->response->setJsonContent(
                 [
-                    'users' => $user->users
+                    'users' => $subscribers
                 ]
             );
         }

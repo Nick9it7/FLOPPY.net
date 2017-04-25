@@ -182,6 +182,11 @@ $(document).ready(function () {
             contentType: false,
             success: function (res) {
                 console.log(res);
+                if (res !== false) {
+                    console.log($.isEmptyObject(res));
+                } else {
+                    console.log('error');
+                }
             }
         });
 

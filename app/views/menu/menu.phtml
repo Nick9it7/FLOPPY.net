@@ -41,31 +41,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">Підписки</h4>
             </div>
-            <div class="modal-body">
-                <?php
-                $test = $user;
-                $articles = $user->note;
-                if ($articles->count() > 0) :
-                    $articles = array_reverse($articles->toArray());
-                    foreach ($articles as $note):
-                        ?>
-                        <div class="row">
-                            <div class="col-xs-3">
-                                <img src='../img/us.jpg' alt="" class="img-rounded center_img sub" >
-                            </div>
-                            <div class="col-xs-3">
-                                <p>Oso</p>
-                            </div>
-                            <div class="col-xs-2 col-xs-offset-3">
-                                <a class="btn btn-primary" href="another_user.html" role="button">Перейти</a>
-                            </div>
-                        </div>
-                        <hr>
-                    <? endforeach; ?>
-                <? else: ?>
-                    <p>Ви ні на кого не підписані</p>
-                <? endif; ?>
-            </div>
+
+            <?= $this->view->partial('subscribers/subscripe') ?>
         </div>
     </div>
 </div>
