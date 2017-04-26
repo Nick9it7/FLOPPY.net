@@ -32,6 +32,9 @@ class IndexController extends Controller
 
         $name = [];
         foreach ($user as $item) {
+            if ($item->getName() === $this->session->get('user_identity')['name']) {
+                continue;
+            }
             $name[] = $item->getName();
         }
         return $this->response->setJsonContent($name);
@@ -57,7 +60,18 @@ class IndexController extends Controller
             $subscribers = [];
 
             foreach ($users as $user) {
-                $subscribers[] = $user->users;
+                if ($user->users->hasPhoto()) {
+                    $src = $user->users->getPhoto();
+                } else {
+                    $gravatar = $this->getDi()->getShared('gravatar');
+                    $src = $gravatar->getAvatar($user->users->getEmail());
+                }
+
+                $subscribers[] = [
+                    'id' => $user->users->getId(),
+                    'name' => $user->users->getName(),
+                    'photo' => $src
+                ];
             }
 
             return $this->response->setJsonContent(

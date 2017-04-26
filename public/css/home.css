@@ -153,6 +153,14 @@ hr{
 .added_file_block h1 {
     text-align: center;
 }
+.search-message {
+    background-color: #ffffff;
+    width: 196px;
+    padding: 7px;
+}
+#fined:hover {
+    background-color: #cfecff;
+}
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
 	

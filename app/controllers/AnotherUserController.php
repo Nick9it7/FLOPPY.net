@@ -12,6 +12,7 @@ class AnotherUserController extends Controller
     public function showAction()
     {
         if ($this->request->isPost()) {
+            $namePattern = $this->request->getPost('name');
 
             /**
              * @var Users $user
@@ -20,13 +21,35 @@ class AnotherUserController extends Controller
                 [
                     'name = :name:',
                     'bind' => [
-                        'name' => $this->request->getPost('name'),
+                        'name' => $namePattern,
                     ]
                 ]
             );
 
+            if ($this->request->getPost('name') === $this->session->get('user_identity')['name']) {
+                $user = false;
+            }
+
             if ($user === false) {
-                //return 'user not found';
+                $users = Users::find();
+                $matched = [];
+
+                foreach ($users as $user) {
+                    $name = $user->getName();
+                    $res = stristr($name, $namePattern);
+
+                    if ($res !== false) {
+                        $matched[] = $user;
+                    }
+                }
+
+                if (empty($matched)) {
+                    $this->dispatcher->forward(['controller' => 'error', 'action' =>   'notFound']);
+                } else {
+                   //---------------------
+                    $this->view->render('index', 'search' );
+                    $this->view->user = $matched[0];
+                }
             } else {
                 $this->view->user = $user;
             }

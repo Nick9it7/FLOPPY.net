@@ -12,7 +12,7 @@ var ajaxFormSubmit = function (event) {
     event.defaultPrevented = true;
 
     var form  = jQuery(event.target);
-    var formData       = new FormData;
+    var formData = new FormData;
 
     var serializedForm = form.serializeArray();
 
@@ -87,6 +87,7 @@ var Validate = {
     },
 
     note: function (note) {
+        $('.added_file_block h1').empty();
         $('.added_file_block').prepend('' +
             '<div class="row added">' +
             '   <div class="col-md-1 text-center first">' +
@@ -181,11 +182,34 @@ $(document).ready(function () {
             processData: false,
             contentType: false,
             success: function (res) {
-                console.log(res);
-                if (res !== false) {
-                    console.log($.isEmptyObject(res));
+                $('#subscribe').empty();
+                if (res.users.length > 0) {
+                    $.each(res.users, function (index, value) {
+                        $('#subscribe').append('' +
+                            '<div class="row">' +
+                            '   <div class="col-xs-3">' +
+                            '       <img src="' + value['photo'] +'" alt="" class="img-rounded center_img sub" >' +
+                            '   </div>' +
+                            '   <div class="col-xs-3">' +
+                            '       <p>' + value['name'] +'</p>' +
+                            '   </div>' +
+                            '   <div class="col-xs-2 col-xs-offset-3">' +
+                            '       <form method="post" action="/anotheruser/show">' +
+                            '           <input name="name" type="hidden" value="' + value['name'] + '">' +
+                            '           <button class="btn btn-primary" type="submit">Перейти</button>' +
+                            '       </form>' +
+                            '   </div>' +
+                            '</div>' +
+                            '<hr>'
+                        );
+                    });
                 } else {
-                    console.log('error');
+                    $('#subscribe').append('' +
+                        '<div class="row" style="text-align: center">' +
+                        '   <span style="font-size: large">Ви ні на кого не підписані</span>' +
+                        '</div>' +
+                        '<hr>'
+                    );
                 }
             }
         });
@@ -300,12 +324,12 @@ $(document).ready(function () {
             source: substringMatcher(user),
             templates: {
                 empty: [
-                    '<div class="empty-message">',
+                    '<div class="search-message">',
                     'Збігів не знайдено',
                     '</div>'
                 ].join('\n'),
                 suggestion: function(data) {
-                    return '<div><strong>' + data + '</strong> </div>';
+                    return '<div id="fined" class="search-message"><strong>' + data + '</strong> </div>';
                 }
             }
 

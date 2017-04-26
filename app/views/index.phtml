@@ -27,8 +27,9 @@
 <body>
 
 <?= $this->getContent() ?>
-<?= $this->flashSession->output(); ?>
-
+<div class="test">
+    <?= $this->flashSession->output(); ?>
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <?= $this->tag->javascriptInclude('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js') ?>

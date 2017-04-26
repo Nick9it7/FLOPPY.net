@@ -1,8 +1,28 @@
 <div class="container">
     <div class="content">
         <div class="row">
-            <?= $this->view->partial('profile/info') ?>
-            <input type="file" style="display: none;" name="photo"/>
+            <div class="col-md-3">
+                <div class="row pic">
+                    <div class="col-md-12">
+                        <?php
+                            if ($user->hasPhoto()) {
+                                $src = $user->getPhoto();
+                            } else {
+                                $gravatar = $this->getDi()->getShared('gravatar');
+                                $src = $gravatar->getAvatar($user->getEmail());
+                            }
+                        ?>
+                        <img src='<?= $src ?>' alt="" class="img-thumbnail center_img">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 nick_name">
+                        <?= $user->getName() ?>
+                    </div>
+                </div>
+                <input type="file" style="display: none;" name="photo"/>
+            </div>
 
             <div class="col-md-9 cont">
                 <div class="row add">
