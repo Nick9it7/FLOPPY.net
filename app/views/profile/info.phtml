@@ -2,11 +2,11 @@
     <div class="row pic">
         <div class="col-md-12">
             <?php
-            if ($user->hasPhoto()) {
-                $src = $user->getPhoto();
+            if ($user['user']->hasPhoto()) {
+                $src = $user['user']->getPhoto();
             } else {
                 $gravatar = $this->getDi()->getShared('gravatar');
-                $src = $gravatar->getAvatar($user->getEmail());
+                $src = $gravatar->getAvatar($user['user']->getEmail());
             }
             ?>
             <img src='<?= $src ?>' alt="" class="img-thumbnail center_img">
@@ -15,7 +15,7 @@
 
     <div class="row">
         <div class="col-md-12 nick_name">
-            <?= $user->getName() ?>
+            <?= $user['user']->getName() ?>
         </div>
     </div>
 </div>

@@ -155,11 +155,11 @@ hr{
 }
 .search-message {
     background-color: #ffffff;
-    width: 196px;
+    width: 200px;
     padding: 7px;
 }
-#fined:hover {
-    background-color: #cfecff;
+.search-message:hover {
+    background-color: #d5efff;
 }
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {

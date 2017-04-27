@@ -17,7 +17,20 @@ class IndexController extends Controller
                     ]
                 ]
             );
-            $this->view->user = $user;
+
+            $expansion = [];
+            $articles = $user->note;
+            $pattern = '#\.[a-z]*$#';
+
+            foreach ($articles as $note) {
+                $name = $note->getFile();
+                preg_match($pattern, $name, $expansion[]);
+            }
+
+            $this->view->user = [
+                'user' => $user,
+                'exp' => $expansion
+            ];
         } else {
             $this->response->redirect('/user/login');
         }

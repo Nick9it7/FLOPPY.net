@@ -1,7 +1,7 @@
 <div class="wall">
     <div class="added_file_block">
         <?php
-        $articles = $user->note;
+        $articles = $user['user']->note;
         if ($articles->count() > 0) :
             $articles = array_reverse($articles->toArray());
             foreach ($articles as $note):

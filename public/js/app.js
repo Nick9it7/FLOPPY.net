@@ -175,6 +175,9 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Show subscribers list
+     */
     $('.subscription').on('click', function () {
         $.ajax({
             url: "/index/subscribelist",
@@ -213,7 +216,6 @@ $(document).ready(function () {
                 }
             }
         });
-
     });
 });
 
@@ -332,7 +334,6 @@ $(document).ready(function () {
                     return '<div id="fined" class="search-message"><strong>' + data + '</strong> </div>';
                 }
             }
-
         }
     );
 });

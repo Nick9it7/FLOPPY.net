@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="content">
+        <?
+        if (isset($users)) {
+            foreach ($users as $item) :
+                ?>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <img src="<?= $item['photo'] ?>" alt="" class="img-rounded center_img sub">
+                            </div>
+                            <div class="col-xs-3">
+                                <p><?= $item['name'] ?></p>
+                            </div>
+                            <div class="col-xs-2 col-xs-offset-3">
+                                <form method="post" action="/anotheruser/show">
+                                    <input name="name" type="hidden" value="<?= $item['name'] ?>">
+                                    <button class="btn btn-primary" type="submit">Перейти</button>
+                                </form>
+                            </div>
+                        </div>
+                        <hr>
+            <?php endforeach;
+        } else { ?>
+            <div class="row">
+                <p style="text-align: center">Користувачів не знайденно</p>
+            </div>
+        <? } ?>
+    </div>
+</div>
