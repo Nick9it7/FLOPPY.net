@@ -27,6 +27,11 @@ class IndexController extends Controller
                 preg_match($pattern, $name, $expansion[]);
             }
 
+            $src = [];
+            foreach ($expansion as $exp) {
+                if (in_array($exp, NoteController::$doc)) $src[] = '';
+            }
+
             $this->view->user = [
                 'user' => $user,
                 'exp' => $expansion
