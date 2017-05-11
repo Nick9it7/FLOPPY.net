@@ -4,13 +4,15 @@ use Phalcon\Mvc\Controller;
 
 class NoteController extends Controller
 {
-    public static $video  = ['.mkv', '.flv', '.vob', '.ogg', '.ogv', '.avi', '.asf', '.mov', '.qt', '.swf', '.mpg', '.mp4', '.wmv', '.mpeg'];
+    public static $video   = ['.mkv', '.flv', '.vob', '.ogg', '.ogv', '.avi', '.asf', '.mov', '.qt', '.swf', '.mpg', '.mp4', '.wmv', '.mpeg'];
 
-    public static $music  = ['.webm', '.pcm', '.wav', '.aiff', '.mp3', '.aac', '.wma', '.flac', '.alac', '.3gp'];
+    public static $music   = ['.webm', '.pcm', '.wav', '.aiff', '.mp3', '.aac', '.wma', '.flac', '.alac', '.3gp'];
 
-    public static $images = ['.gif', '.png', '.jpg', '.jpeg', '.bmp', '.pcx', '.webp', '.svg', '.tiff'];
+    public static $images  = ['.gif', '.png', '.jpg', '.jpeg', '.bmp', '.pcx', '.webp', '.svg', '.tiff'];
 
-    public static $doc    = ['.doc', '.docx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
+    public static $doc     = ['.doc', '.docx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
+
+    public static $archive = ['.rar', '.zip', '.7z', '.tar', '.iso', '.msi'];
 
     public function createAction()
     {

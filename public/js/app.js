@@ -66,6 +66,7 @@ var Validate = {
      * @param errors
      */
     showErrorsMessages: function(errors) {
+        console.log(errors);
         jQuery('.errors-block').remove();
 
         $.each(errors, function (index) {
@@ -77,6 +78,7 @@ var Validate = {
 
             jQuery("input[name='" + item.field + "']").closest('.form-group').append('<div class="error label errors-block label-danger">' + item.message + '</div>');
             jQuery("select[name='" + item.field + "']").after('<span class="label errors-block label-danger">' + item.message + '</span>');
+            jQuery("textarea[name='" + item.field + "']").closest('.form-group').append('<div class="error label errors-block label-danger">' + item.message + '</div>');
         });
     },
 
@@ -94,7 +96,7 @@ var Validate = {
             '       <i class="glyphicon glyphicon-floppy-saved"></i>' +
             '   </div>' +
             '   <div class="col-md-10">' +
-            '       <div class="description">' + note.text + '</div>' +
+            '       <div class="descriptionText">' + note.text + '</div>' +
             '   </div>' +
             '   <div class="col-md-1 text-center first">' +
             '       <form action="/file/download" method="post">' +
@@ -106,7 +108,9 @@ var Validate = {
             '   </div>' +
             '</div>'
         );
-        $('.description input[name="desc"]').val('');
+        $('.description textarea[name="desc"]').val('');
+        $('.description input[name="file"]').val('');
+        $('.errors-block').remove();
     },
 
     subscribe: function (subscribe) {

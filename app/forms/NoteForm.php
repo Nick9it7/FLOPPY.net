@@ -2,8 +2,7 @@
 
 
 use Phalcon\Forms\Element\Hidden;
-use Phalcon\Forms\Element\Text;
-use Phalcon\Validation\Validator\File;
+use Phalcon\Forms\Element\TextArea;
 use Phalcon\Validation\Validator\PresenceOf;
 
 class NoteForm extends ValidForm
@@ -23,7 +22,7 @@ class NoteForm extends ValidForm
         );
         $this->add($file);
 
-        $text = new Text('desc');
+        $text = new TextArea('desc');
         $text->setLabel('Опис файлу');
         $this->requiredValidator($text);
         $this->add($text);

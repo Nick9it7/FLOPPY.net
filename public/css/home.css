@@ -96,15 +96,21 @@ img{
     margin-bottom: 5px;
     border: 2px solid black;
     background: #edeef0;
+    resize: none;
 }
-.description input::-webkit-input-placeholder {
+.description textarea::-webkit-input-placeholder {
     font-size: 20px;
     line-height: 3;
     text-align: center;
 }
 .description .form-control:hover{
-background: #edeef0;
+    background: #edeef0;
 }
+
+.descriptionText {
+    word-wrap: break-word;
+}
+
 .first .btn{
     font-size: 25px;
     border: none;
