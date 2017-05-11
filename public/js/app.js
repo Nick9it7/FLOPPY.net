@@ -148,7 +148,7 @@ $(document).ready(function () {
     /**
      * Upload user photo
      */
-    $("input[name='photo']").change(function () {
+    $("input[name='photo']").change(function (event) {
         var file = event.target.files;
         var id = event.target.id;
 
