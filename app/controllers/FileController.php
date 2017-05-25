@@ -37,7 +37,7 @@ class FileController extends Controller
     {
         if ($this->request->isPost()) {
             $r = fopen($this->localPath, 'w+');
-            $fileMetadata = $this->dbxClient->getFile($this->removePath . '/' . $this->request->getPost('fileName'), $r);
+            $fileMetadata = $this->dbxClient->getFile($this->removePath . '/' . $this->request->getPost('file'), $r);
             fclose($r);
 
             $response = new Response();
@@ -61,12 +61,15 @@ class FileController extends Controller
             foreach ($uploads as $upload) {
 
                 $upload->moveTo($this->localPath);
+                $name = md5($upload->getName());
                 $this->dbxClient->createFolder($this->removePath);
 
 
                     $r = fopen($this->localPath,'r');
-                    $this->dbxClient->uploadFile($this->removePath . '/' . $upload->getName(), \Dropbox\WriteMode::add(), $r);
-
+                    $this->dbxClient->uploadFile($this->removePath . '/' . $name , \Dropbox\WriteMode::add(), $r);
+                    $this->session->set('md5_cache_file',[
+                        'name' => $name
+                    ]);
                     fclose($r);
 
 
@@ -78,7 +81,7 @@ class FileController extends Controller
     public function deleteAction()
     {
         if ($this->request->isPost()) {
-            $this->dbxClient->delete($this->removePath . '/' . $this->request->getPost('fileName'));
+            $this->dbxClient->delete($this->removePath . '/' . $this->request->getPost('file'));
         }
     }
 }

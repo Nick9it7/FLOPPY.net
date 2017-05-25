@@ -24,7 +24,17 @@ class Note extends Model
     /**
      * @var string
      */
+    private $fileName;
+
+    /**
+     * @var string
+     */
     private $file;
+
+    /**
+     * @var string
+     */
+    private $expansion;
 
     /**
      * Declared relationships many to one
@@ -92,5 +102,37 @@ class Note extends Model
     public function setFile($file)
     {
         $this->file = $file;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
+     * @param string $fileName
+     */
+    public function setFileName($fileName)
+    {
+        $this->fileName = $fileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExpansion()
+    {
+        return $this->expansion;
+    }
+
+    /**
+     * @param string $expansion
+     */
+    public function setExpansion($expansion)
+    {
+        $this->expansion = $expansion;
     }
 }

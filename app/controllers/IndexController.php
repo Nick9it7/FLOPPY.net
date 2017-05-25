@@ -37,8 +37,7 @@ class IndexController extends Controller
             }
 
             $this->view->user = [
-                'user' => $user,
-                'exp' => $expansion
+                'user' => $user
             ];
         } else {
             $this->response->redirect('/user/login');

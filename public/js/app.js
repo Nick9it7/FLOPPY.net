@@ -66,7 +66,6 @@ var Validate = {
      * @param errors
      */
     showErrorsMessages: function(errors) {
-        console.log(errors);
         jQuery('.errors-block').remove();
 
         $.each(errors, function (index) {
@@ -93,7 +92,7 @@ var Validate = {
         $('.added_file_block').prepend('' +
             '<div class="row added">' +
             '   <div class="col-md-1 text-center first">' +
-            '       <i class="glyphicon glyphicon-floppy-saved"></i>' +
+            '       <img src="' + note.expansion + '">' +
             '   </div>' +
             '   <div class="col-md-10">' +
             '       <div class="descriptionText">' + note.text + '</div>' +
@@ -241,9 +240,9 @@ $(function(){
             self.options.dictRemoveFile = "Видалити";
             self.options.dictCancelUpload = "Відмінити";
             self.options.dictFileTooBig = "Файл дуже великий";
-            self.options.dictMaxFilesExceeded = "Не можна загружати більше файлів";
+            self.options.dictMaxFilesExceeded = "Не можна завантажувати більше файлів";
             self.options.dictDefaultMessage = "Перетягніть сюди файл";
-            self.options.dictCancelUploadConfirmation = "Ви впевненні, що бажаєте відмінити загрузку?";
+            self.options.dictCancelUploadConfirmation = "Ви впевненні, що бажаєте відмінити завантаження?";
 
             var submitButton = document.querySelector(".start");
 
@@ -251,7 +250,7 @@ $(function(){
                 self.processQueue();
             });
             self.on("addedfile", function (file) {
-
+                console.log(file);
             });
 
             self.on("sending", function (file) {
@@ -260,7 +259,7 @@ $(function(){
 
             self.on("success", function (file) {
                 jQuery('#myModal').modal('toggle');
-                $('.add form input[type="hidden"]').attr('value', file.name);
+                $('.add form input[name="titleFile"]').attr('value', file.name);
 
             });
 
@@ -273,7 +272,7 @@ $(function(){
                     url: '/file/delete',
                     method: 'post',
                     data: {
-                        fileName: file.name
+                        fileName: $('.add form input[type="hidden"]').attr('value')
                     },
                     success: function () {
                         $('#hiddenFile').attr('value', '');

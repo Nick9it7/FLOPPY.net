@@ -48,12 +48,30 @@ class NoteMigration_102 extends Migration
                         ]
                     ),
                     new Column(
-                        'file',
+                        'fileName',
                         [
                             'type' => Column::TYPE_VARCHAR,
                             'notNull' => true,
                             'size' => 255,
                             'after' => 'text'
+                        ]
+                    ),
+                    new Column(
+                        'file',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'fileName'
+                        ]
+                    ),
+                    new Column(
+                        'expansion',
+                        [
+                            'type' => Column::TYPE_VARCHAR,
+                            'notNull' => true,
+                            'size' => 255,
+                            'after' => 'file'
                         ]
                     )
                 ],

@@ -34,7 +34,12 @@
                     <form action='/note/create' method="post" class="form-signin async">
                         <div class="col-md-10">
                             <div class="form-group description">
-                                <input type="hidden" name="file" value="test.test">
+                                <?php
+                                $this->session->set('md5_cache_file',[
+                                    'name' => 'test'
+                                ]);
+                                ?>
+                                <input type="hidden" name="titleFile" value="test.jpg">
                                 <textarea rows="3" class="form-control input-lg" id="ex1" name="desc" placeholder="Опис файлу"></textarea>
                             </div>
                         </div>

@@ -9,7 +9,7 @@ class NoteForm extends ValidForm
 {
     public function initialize()
     {
-        $file = new Hidden('file');
+        $file = new Hidden('titleFile');
         $file->setLabel('Файл');
         $file->addValidators(
             [

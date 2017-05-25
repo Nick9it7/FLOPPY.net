@@ -22,14 +22,30 @@ class NoteController extends Controller
 
             if ($form->isValid($this->request->getPost())) {
 
+                $expansion = 0;
+                $src = 'default';
+                $pattern = '#\.[a-z]*$#';
+                preg_match($pattern, $this->request->getPost('titleFile'), $expansion);
+
+                if (in_array($expansion, NoteController::$doc)) $src = '';
+                elseif (in_array($expansion, NoteController::$images)) $src = '';
+                elseif (in_array($expansion, NoteController::$music)) $src = '';
+                elseif (in_array($expansion, NoteController::$video)) $src = '';
+                elseif (in_array($expansion, NoteController::$archive)) $src = '';
+
+
                 /**
                  * @var Note $note
                  */
                 $note = new Note();
                 $note->setUser($this->session->get('user_identity')['id']);
                 $note->setText(nl2br($this->request->getPost('desc')));
-                $note->setFile($this->request->getPost('file'));
+                $note->setFileName($this->request->getPost('titleFile'));
+                $note->setFile($this->session->get('md5_cache_file')['name']);
+                $note->setExpansion($src);
+                
                 if ($note->save()) {
+//                    $this->session->destroy('md5_cache_file');
                     return $this->response->setJsonContent(
                         [
                             'note' => $note
