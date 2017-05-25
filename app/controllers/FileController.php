@@ -61,17 +61,16 @@ class FileController extends Controller
             foreach ($uploads as $upload) {
 
                 $upload->moveTo($this->localPath);
-                $name = md5($upload->getName());
+                $name = md5(uniqid(rand(), true));
                 $this->dbxClient->createFolder($this->removePath);
 
 
                     $r = fopen($this->localPath,'r');
                     $this->dbxClient->uploadFile($this->removePath . '/' . $name , \Dropbox\WriteMode::add(), $r);
-                    $this->session->set('md5_cache_file',[
+                    $this->session->set('cache_file',[
                         'name' => $name
                     ]);
                     fclose($r);
-
 
                 unlink($this->localPath);
             }
@@ -81,7 +80,10 @@ class FileController extends Controller
     public function deleteAction()
     {
         if ($this->request->isPost()) {
-            $this->dbxClient->delete($this->removePath . '/' . $this->request->getPost('file'));
+            if ($this->request->getPost('file') !== '') {
+                $file = $this->session->get('cache_file')['name'];
+                $this->dbxClient->delete($this->removePath . '/' . $file);
+            }
         }
     }
 }

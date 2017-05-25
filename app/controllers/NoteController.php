@@ -41,11 +41,10 @@ class NoteController extends Controller
                 $note->setUser($this->session->get('user_identity')['id']);
                 $note->setText(nl2br($this->request->getPost('desc')));
                 $note->setFileName($this->request->getPost('titleFile'));
-                $note->setFile($this->session->get('md5_cache_file')['name']);
+                $note->setFile($this->session->get('cache_file')['name']);
                 $note->setExpansion($src);
                 
                 if ($note->save()) {
-//                    $this->session->destroy('md5_cache_file');
                     return $this->response->setJsonContent(
                         [
                             'note' => $note

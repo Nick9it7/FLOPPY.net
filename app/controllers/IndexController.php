@@ -18,24 +18,6 @@ class IndexController extends Controller
                 ]
             );
 
-            $expansion = [];
-            $articles = $user->note;
-            $pattern = '#\.[a-z]*$#';
-
-            foreach ($articles as $note) {
-                $name = $note->getFile();
-                preg_match($pattern, $name, $expansion[]);
-            }
-
-            $src = [];
-            foreach ($expansion as $exp) {
-                if (in_array($exp, NoteController::$doc)) $src[] = '';
-                elseif (in_array($exp, NoteController::$images)) $src[] = '';
-                elseif (in_array($exp, NoteController::$music)) $src[] = '';
-                elseif (in_array($exp, NoteController::$video)) $src[] = '';
-                elseif (in_array($exp, NoteController::$archive)) $src[] = '';
-            }
-
             $this->view->user = [
                 'user' => $user
             ];

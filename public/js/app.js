@@ -99,8 +99,9 @@ var Validate = {
             '   </div>' +
             '   <div class="col-md-1 text-center first">' +
             '       <form action="/file/download" method="post">' +
-            '           <input type="hidden" name="fileName" value="' + note.file + '">' +
-            '           <button type="submit" class="btn btn-default">' +
+            '           <input type="hidden" name="fileName" value="' + note.fileName + '">' +
+            '           <input type="hidden" name="file" value="' + note.file + '">' +
+            '           <button type="submit" class="btn btn-default" title="Назва файла ' + note.fileName + '">' +
             '               <i class="glyphicon glyphicon-save"></i>' +
             '           </button>' +
             '       </form>' +
@@ -108,7 +109,8 @@ var Validate = {
             '</div>'
         );
         $('.description textarea[name="desc"]').val('');
-        $('.description input[name="file"]').val('');
+        $('.description input[name="titleFile"]').val('');
+        $('.dz-remove')[0].click();
         $('.errors-block').remove();
     },
 
@@ -250,7 +252,7 @@ $(function(){
                 self.processQueue();
             });
             self.on("addedfile", function (file) {
-                console.log(file);
+
             });
 
             self.on("sending", function (file) {
@@ -260,7 +262,6 @@ $(function(){
             self.on("success", function (file) {
                 jQuery('#myModal').modal('toggle');
                 $('.add form input[name="titleFile"]').attr('value', file.name);
-
             });
 
             self.on("totaluploadprogress", function (progress) {
@@ -272,10 +273,11 @@ $(function(){
                     url: '/file/delete',
                     method: 'post',
                     data: {
-                        fileName: $('.add form input[type="hidden"]').attr('value')
+                        'file': $('.description input[name="titleFile"]').val()
                     },
                     success: function () {
-                        $('#hiddenFile').attr('value', '');
+                        $('.description input[name="titleFile"]').val('');
+                        self.removeAllFiles();
                     }
                 });
             });

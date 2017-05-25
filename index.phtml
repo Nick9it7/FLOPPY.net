@@ -1,0 +1,41 @@
+<?= $this->tag->getDoctype() ?>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <link rel="icon" href="../img/floppy.ico">
+    <title>Floppy.net</title>
+
+    <!-- Bootstrap -->
+    <?= $this->tag->stylesheetLink('css/bootstrap.min.css'); ?>
+    <?= $this->tag->stylesheetLink('css/dropzone.min.css'); ?>
+    <?= $this->tag->stylesheetLink('css/typeahead.css'); ?>
+    <?= $this->tag->stylesheetLink('css/common.css'); ?>
+    <?= $this->tag->stylesheetLink('https://fonts.googleapis.com/css?family=Jura'); ?>
+    <?= $this->tag->stylesheetLink('https://fonts.googleapis.com/css?family=Audiowide'); ?>
+    <?= $this->tag->stylesheetLink('https://fonts.googleapis.com/css?family=PT+Sans+Caption:700'); ?>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<?= $this->getContent() ?>
+<?= $this->flashSession->output(); ?>
+
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<?= $this->tag->javascriptInclude('https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js') ?>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<?= $this->tag->javascriptInclude('js/bootstrap.min.js') ?>
+<?= $this->tag->javascriptInclude('js/dropzone.min.js') ?>
+<?= $this->tag->javascriptInclude('js/app.js') ?>
+<?= $this->tag->javascriptInclude('js/typeahead.js') ?>
+</body>
+</html>
