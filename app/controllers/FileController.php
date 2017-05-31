@@ -37,7 +37,7 @@ class FileController extends Controller
     {
         if ($this->request->isPost()) {
             $r = fopen($this->localPath, 'w+');
-            $fileMetadata = $this->dbxClient->getFile($this->removePath . '/' . $this->request->getPost('file'), $r);
+            $fileMetadata = $this->dbxClient->getFile($this->request->getPost('file'), $r);
             fclose($r);
 
             $response = new Response();

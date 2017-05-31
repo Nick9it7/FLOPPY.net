@@ -26,9 +26,9 @@ class NoteController extends Controller
 
                 $expansion = 0;
                 $src = '/public/img/format/default.png';
-                $pattern = '#\.[a-z]*$#';
+                $pattern = '#\.[0-9a-z]*$#i';
                 preg_match($pattern, $this->request->getPost('titleFile'), $expansion);
-                $expansion = $expansion[0];
+                $expansion = strtolower($expansion[0]);
 
                 if (in_array($expansion, NoteController::$doc)) $src = '/public/img/format/doc.png';
                 elseif (in_array($expansion, NoteController::$images)) $src = '/public/img/format/pictures.png';
@@ -45,7 +45,7 @@ class NoteController extends Controller
                 $note->setUser($this->session->get('user_identity')['id']);
                 $note->setText(nl2br($this->request->getPost('desc')));
                 $note->setFileName($this->request->getPost('titleFile'));
-                $note->setFile($this->session->get('cache_file')['name']);
+                $note->setFile('/user_' . $this->session->get('user_identity')['id'] . '/' . $this->session->get('cache_file')['name']);
                 $note->setExpansion($src);
                 
                 if ($note->save()) {
