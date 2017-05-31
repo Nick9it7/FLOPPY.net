@@ -6,13 +6,15 @@ class NoteController extends Controller
 {
     public static $video   = ['.mkv', '.flv', '.vob', '.ogg', '.ogv', '.avi', '.asf', '.mov', '.qt', '.swf', '.mpg', '.mp4', '.wmv', '.mpeg'];
 
+    public static $doc     = ['.doc', '.docx', 'xls', 'xlsx', 'ppt', 'pptx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
+
     public static $music   = ['.webm', '.pcm', '.wav', '.aiff', '.mp3', '.aac', '.wma', '.flac', '.alac', '.3gp'];
 
     public static $images  = ['.gif', '.png', '.jpg', '.jpeg', '.bmp', '.pcx', '.webp', '.svg', '.tiff'];
 
-    public static $doc     = ['.doc', '.docx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
-
     public static $archive = ['.rar', '.zip', '.7z', '.tar', '.iso', '.msi'];
+
+    public static $exe = ['.exe'];
 
     public function createAction()
     {
@@ -33,6 +35,7 @@ class NoteController extends Controller
                 elseif (in_array($expansion, NoteController::$music)) $src = '/public/img/format/music.png';
                 elseif (in_array($expansion, NoteController::$video)) $src = '/public/img/format/video.png';
                 elseif (in_array($expansion, NoteController::$archive)) $src = '/public/img/format/archive.png';
+                elseif (in_array($expansion, NoteController::$exe)) $src = '/public/img/format/exe.png';
 
 
                 /**
