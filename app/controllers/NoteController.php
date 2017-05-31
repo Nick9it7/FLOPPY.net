@@ -6,7 +6,7 @@ class NoteController extends Controller
 {
     public static $video   = ['.mkv', '.flv', '.vob', '.ogg', '.ogv', '.avi', '.asf', '.mov', '.qt', '.swf', '.mpg', '.mp4', '.wmv', '.mpeg'];
 
-    public static $doc     = ['.doc', '.docx', 'xls', 'xlsx', 'ppt', 'pptx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
+    public static $doc     = ['.doc', '.docx', '.xls', '.xlsx', '.ppt', '.pptx', '.txt', '.odt', '.pdf', '.rtf', '.djvu', '.epub'];
 
     public static $music   = ['.webm', '.pcm', '.wav', '.aiff', '.mp3', '.aac', '.wma', '.flac', '.alac', '.3gp'];
 

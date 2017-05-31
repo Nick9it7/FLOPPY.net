@@ -94,7 +94,7 @@ var Validate = {
             '   <div class="col-md-1 text-center first">' +
             '       <img src="' + note.expansion + '">' +
             '   </div>' +
-            '   <div class="col-md-10">' +
+            '   <div class="col-md-10 test">' +
             '       <div class="descriptionText">' + note.text + '</div>' +
             '   </div>' +
             '   <div class="col-md-1 text-center first">' +
