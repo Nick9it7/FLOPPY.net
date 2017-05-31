@@ -44,7 +44,7 @@ body {
 .logo {
     font-size: 40px;
     color: #ffffff;
-    margin: 10px 15px 0 0;
+    margin: 10px 15px;
 }
 #navbar {
     padding-top: 5px;
@@ -89,7 +89,10 @@ img{
 }
 .text-center{
     font-size: 30px;
-    margin-top: 9px;
+    margin: 10px 0;
+}
+.text-center img {
+    width: 50px;
 }
 .description .form-control{
     margin-top: 5px;
@@ -108,7 +111,13 @@ img{
 }
 
 .descriptionText {
+    font-size: 20px;
+    margin: 10px 0;
     word-wrap: break-word;
+}
+
+#test {
+    margin:10px 0;
 }
 
 .first .btn{
@@ -141,9 +150,9 @@ hr{
 .row .subscribe_u .btn{
     color: #edeef0;
     font-weight: bold;
-    margin-top: -40px;
-    padding-left: 75px;
-    padding-right: 75px;
+    margin-top: -10px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 .subscribe_u .glyphicon{
     margin-right: 3px;
@@ -166,6 +175,9 @@ hr{
 }
 .search-message:hover {
     background-color: #d5efff;
+}
+.twitter-typeahead {
+    width: 100% !important;
 }
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {

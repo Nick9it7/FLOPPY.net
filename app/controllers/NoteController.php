@@ -23,15 +23,16 @@ class NoteController extends Controller
             if ($form->isValid($this->request->getPost())) {
 
                 $expansion = 0;
-                $src = 'default';
+                $src = '/public/img/format/default.png';
                 $pattern = '#\.[a-z]*$#';
                 preg_match($pattern, $this->request->getPost('titleFile'), $expansion);
+                $expansion = $expansion[0];
 
-                if (in_array($expansion, NoteController::$doc)) $src = '';
-                elseif (in_array($expansion, NoteController::$images)) $src = '';
-                elseif (in_array($expansion, NoteController::$music)) $src = '';
-                elseif (in_array($expansion, NoteController::$video)) $src = '';
-                elseif (in_array($expansion, NoteController::$archive)) $src = '';
+                if (in_array($expansion, NoteController::$doc)) $src = '/public/img/format/doc.png';
+                elseif (in_array($expansion, NoteController::$images)) $src = '/public/img/format/pictures.png';
+                elseif (in_array($expansion, NoteController::$music)) $src = '/public/img/format/music.png';
+                elseif (in_array($expansion, NoteController::$video)) $src = '/public/img/format/video.png';
+                elseif (in_array($expansion, NoteController::$archive)) $src = '/public/img/format/archive.png';
 
 
                 /**

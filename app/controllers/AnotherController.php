@@ -2,7 +2,7 @@
 
 use Phalcon\Mvc\Controller;
 
-class AnotherUserController extends Controller
+class AnotherController extends Controller
 {
     public function initialize()
     {

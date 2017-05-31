@@ -1,0 +1,35 @@
+<div class="container">
+    <div class="content">
+        <div class="row">
+            <div class="col-md-3">
+                <?= $this->view->partial('profile/info') ?>
+
+                <div class="row">
+                    <div class="col-md-12 subscribe_u text-center ">
+
+                        <?php
+                        if (!$user['user']->hasSubscribed($this->session->get('user_identity')['id'], $user['user']->getId())) {
+                            $action = '/another/subscribe';
+                            $text = 'Підписатися';
+                        } else {
+                            $action = '/another/unsubscribe';
+                            $text = 'Відписатися';
+                        }
+                        ?>
+
+                        <form method="post" action="<?= $action ?>" class="buttom async">
+                            <input type="hidden" name="subscriber" value="<?= $user['user']->getId()?>">
+                            <button class="btn btn-primary" type="submit">
+                                <span style="font-size: 20px"><?= $text ?></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9 cont">
+                <?= $this->view->partial('profile/wall') ?>
+            </div>
+        </div>
+    </div>
+</div>

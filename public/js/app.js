@@ -115,13 +115,13 @@ var Validate = {
     },
 
     subscribe: function (subscribe) {
-        $('.buttom button span').text('Unsubscribe');
-        $('.buttom').attr('action', '/anotheruser/unsubscribe');
+        $('.buttom button span').text('Відписатися');
+        $('.buttom').attr('action', '/another/unsubscribe');
     },
 
     unsubscribe: function (unsubscribe) {
-        $('.buttom button span').text('Subscribe');
-        $('.buttom').attr('action', '/anotheruser/Subscribe');
+        $('.buttom button span').text('Підписатися');
+        $('.buttom').attr('action', '/another/Subscribe');
     }
 };
 
@@ -202,7 +202,7 @@ $(document).ready(function () {
                             '       <p>' + value['name'] +'</p>' +
                             '   </div>' +
                             '   <div class="col-xs-2 col-xs-offset-3">' +
-                            '       <form method="post" action="/anotheruser/show">' +
+                            '       <form method="post" action="/another/show">' +
                             '           <input name="name" type="hidden" value="' + value['name'] + '">' +
                             '           <button class="btn btn-primary" type="submit">Перейти</button>' +
                             '       </form>' +
