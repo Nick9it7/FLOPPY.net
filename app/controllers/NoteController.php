@@ -38,12 +38,15 @@ class NoteController extends Controller
                 elseif (in_array($expansion, NoteController::$exe)) $src = '/public/img/format/exe.png';
 
 
+                $post = htmlspecialchars(nl2br($this->request->getPost('desc')));
+                $post = str_replace('&lt;br /&gt;' , '<br>', $post);
                 /**
                  * @var Note $note
                  */
                 $note = new Note();
                 $note->setUser($this->session->get('user_identity')['id']);
-                $note->setText(nl2br($this->request->getPost('desc')));
+
+                $note->setText($post);
                 $note->setFileName($this->request->getPost('titleFile'));
                 $note->setFile('/user_' . $this->session->get('user_identity')['id'] . '/' . $this->session->get('cache_file')['name']);
                 $note->setExpansion($src);
