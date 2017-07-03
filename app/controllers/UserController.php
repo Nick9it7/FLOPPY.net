@@ -41,7 +41,7 @@ class UserController extends Controller
                      */
                     $user = new Users();
                     $user->setEmail($this->request->getPost('email'));
-                    $user->setName($this->request->getPost('name'));
+                    $user->setName(htmlspecialchars($this->request->getPost('name')));
                     $user->setPassword(
                         $this->security->hash($this->request->getPost('password'))
                     );
